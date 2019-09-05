@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import * as fs from "fs";
 import "mocha";
-import { PostDocumentExecuteMailMergeRequest, PutExecuteMailMergeOnlineRequest } from "../../../src/model/model";
+import { ExecuteMailMergeRequest, ExecuteMailMergeOnlineRequest } from "../../../src/model/model";
 import * as BaseTest from "../../baseTest";
 
 const testFolder = "DocumentActions/MailMerge";
@@ -38,13 +38,13 @@ describe("executeMailMerge", () => {
             const templateLocalPath = BaseTest.localBaseTestDataFolder + testFolder + "/SampleMailMergeTemplate.docx";
             const dataLocalPath = BaseTest.localBaseTestDataFolder + testFolder + "/SampleMailMergeTemplateData.txt";
 
-            const request = new PutExecuteMailMergeOnlineRequest({
+            const request = new ExecuteMailMergeOnlineRequest({
                 data: fs.readFileSync(dataLocalPath),
                 template: fs.readFileSync(templateLocalPath),
             });
             
             // Act
-            return wordsApi.putExecuteMailMergeOnline(request)
+            return wordsApi.executeMailMergeOnline(request)
                 .then((result) => {
                     // Assert                
                     expect(result.response.statusCode).to.equal(200);
@@ -73,17 +73,16 @@ describe("executeMailMerge", () => {
                     });
                 })
                     .then(() => {
-                        const request = new PostDocumentExecuteMailMergeRequest();
+                        const request = new ExecuteMailMergeRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
                         request.data = fs.readFileSync(dataLocalPath, "utf8");
                         request.withRegions = false;
                         
                         // Act
-                        return wordsApi.postDocumentExecuteMailMerge(request)
+                        return wordsApi.executeMailMerge(request)
                             .then((result) => {
                                 // Assert
-                                expect(result.body.code).to.equal(200);
                                 expect(result.response.statusCode).to.equal(200);
                                 
                                 expect(result.body.document.isEncrypted).to.equal(false);
@@ -110,17 +109,16 @@ describe("executeMailMerge", () => {
                     });
                 })
                     .then(() => {
-                        const request = new PostDocumentExecuteMailMergeRequest();
+                        const request = new ExecuteMailMergeRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
                         request.data = fs.readFileSync(dataLocalPath, "utf8");
                         request.withRegions = false;
 
                         // Act
-                        return wordsApi.postDocumentExecuteMailMerge(request)
+                        return wordsApi.executeMailMerge(request)
                             .then((result) => {
                                 // Assert
-                                expect(result.body.code).to.equal(200);
                                 expect(result.response.statusCode).to.equal(200);
 
                                 expect(result.body.document.isEncrypted).to.equal(false);

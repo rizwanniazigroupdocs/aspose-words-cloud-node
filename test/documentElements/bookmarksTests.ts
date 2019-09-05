@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { BookmarkData, GetDocumentBookmarkByNameRequest, GetDocumentBookmarksRequest, PostUpdateDocumentBookmarkRequest } from "../../src/model/model";
+import { BookmarkData, GetBookmarkByNameRequest, GetBookmarksRequest, UpdateBookmarkRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Bookmarks";
@@ -48,15 +48,14 @@ describe("bookmarks", () => {
                 });
             })
                 .then(() => {
-                    const request = new GetDocumentBookmarksRequest();
+                    const request = new GetBookmarksRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
 
                     // Act
-                    return wordsApi.getDocumentBookmarks(request)
+                    return wordsApi.getBookmarks(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.bookmarks).to.exist.and.not.equal(null);
@@ -82,16 +81,15 @@ describe("bookmarks", () => {
                 });
             })
                 .then(() => {
-                    const request = new GetDocumentBookmarkByNameRequest();
+                    const request = new GetBookmarkByNameRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.bookmarkName = "aspose";
 
                     // Act
-                    return wordsApi.getDocumentBookmarkByName(request)
+                    return wordsApi.getBookmarkByName(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.bookmark).to.exist.and.not.equal(null);
@@ -117,7 +115,7 @@ describe("bookmarks", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostUpdateDocumentBookmarkRequest();
+                    const request = new UpdateBookmarkRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.bookmarkName = "aspose";
@@ -126,10 +124,9 @@ describe("bookmarks", () => {
                     });
 
                     // Act
-                    return wordsApi.postUpdateDocumentBookmark(request)
+                    return wordsApi.updateBookmark(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.bookmark).to.exist.and.not.equal(null);

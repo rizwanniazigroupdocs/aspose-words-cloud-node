@@ -35,7 +35,7 @@ When(/^I execute conversion \(PUT convert\)$/, function() {
     const wordsApi = BaseTest.initializeWordsApi();
     const request = this.request;
         
-    return wordsApi.putConvertDocument(request)
+    return wordsApi.convertDocument(request)
         .then((result) => {                        
             this.response = result;
         });

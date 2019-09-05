@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import * as fs from "fs";
 import "mocha";
-import { GetDocumentFieldNamesRequest, PutDocumentFieldNamesRequest } from "../../../src/model/model";
+import { GetDocumentFieldNamesRequest, GetDocumentFieldNamesOnlineRequest } from "../../../src/model/model";
 import * as BaseTest from "../../baseTest";
 
 const testFolder = "DocumentActions/MailMerge";
@@ -56,7 +56,6 @@ describe("mailMerge fields", () => {
                     return wordsApi.getDocumentFieldNames(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.fieldNames.names.length).to.equal(0);
@@ -72,13 +71,13 @@ describe("mailMerge fields", () => {
             const wordsApi = BaseTest.initializeWordsApi();
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/SampleExecuteTemplate.docx";
 
-            const request = new PutDocumentFieldNamesRequest({
+            const request = new GetDocumentFieldNamesOnlineRequest({
                 template: fs.readFileSync(localPath),
                 useNonMergeFields: true,                                
             });
 
             // Act
-            return wordsApi.putDocumentFieldNames(request)
+            return wordsApi.getDocumentFieldNamesOnline(request)
                 .then((result) => {
                     // Assert                
                     expect(result.response.statusCode).to.equal(200);

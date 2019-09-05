@@ -57,7 +57,6 @@ describe("tableProperties", () => {
                     return wordsApi.getTableProperties(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.properties).to.exist.and.not.equal(null);
@@ -105,7 +104,6 @@ describe("tableProperties", () => {
                     return wordsApi.updateTableProperties(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.properties).to.exist.and.not.equal(null);

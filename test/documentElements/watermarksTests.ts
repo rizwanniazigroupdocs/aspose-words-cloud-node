@@ -26,7 +26,7 @@ import { expect } from "chai";
 import * as fs from "fs";
 import "mocha";
 
-import { DeleteDocumentWatermarkRequest, PostInsertDocumentWatermarkImageRequest, PostInsertDocumentWatermarkTextRequest, WatermarkText } from "../../src/model/model";
+import { DeleteWatermarkRequest, InsertWatermarkImageRequest, InsertWatermarkTextRequest, WatermarkText } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Watermarks";
@@ -53,16 +53,15 @@ describe("watermarks", () => {
                     });
                 })
                     .then(() => {
-                        const request = new PostInsertDocumentWatermarkImageRequest();
+                        const request = new InsertWatermarkImageRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
                         request.imageFile = fs.readFileSync(localImagePath);
 
                         // Act
-                        return wordsApi.postInsertDocumentWatermarkImage(request)
+                        return wordsApi.insertWatermarkImage(request)
                             .then((result) => {
                                 // Assert
-                                expect(result.body.code).to.equal(200);
                                 expect(result.response.statusCode).to.equal(200);
 
                                 expect(result.body.document).to.exist.and.not.equal(null);
@@ -92,16 +91,15 @@ describe("watermarks", () => {
                     });
                 })
                 .then(() => {
-                        const request = new PostInsertDocumentWatermarkImageRequest();
+                        const request = new InsertWatermarkImageRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
                         request.image = remotePath + "/" + remoteImageName;
 
                         // Act
-                        return wordsApi.postInsertDocumentWatermarkImage(request)
+                        return wordsApi.insertWatermarkImage(request)
                             .then((result) => {
                                 // Assert
-                                expect(result.body.code).to.equal(200);
                                 expect(result.response.statusCode).to.equal(200);
 
                                 expect(result.body.document).to.exist.and.not.equal(null);
@@ -128,16 +126,15 @@ describe("watermarks", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostInsertDocumentWatermarkTextRequest();
+                    const request = new InsertWatermarkTextRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.watermarkText = new WatermarkText ({ text: "This is the text", rotationAngle: 90.0 });
 
                     // Act
-                    return wordsApi.postInsertDocumentWatermarkText(request)
+                    return wordsApi.insertWatermarkText(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.document).to.exist.and.not.equal(null);
@@ -163,15 +160,14 @@ describe("watermarks", () => {
                 });
             })
                 .then(() => {
-                    const request = new DeleteDocumentWatermarkRequest();
+                    const request = new DeleteWatermarkRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;                    
 
                     // Act
-                    return wordsApi.deleteDocumentWatermark(request)
+                    return wordsApi.deleteWatermark(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.document).to.exist.and.not.equal(null);

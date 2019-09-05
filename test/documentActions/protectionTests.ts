@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { DeleteUnprotectDocumentRequest, GetDocumentProtectionRequest, PostChangeDocumentProtectionRequest, ProtectionRequest, PutProtectDocumentRequest } from "../../src/model/model";
+import { UnprotectDocumentRequest, GetDocumentProtectionRequest, ProtectionRequest, ProtectDocumentRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentActions/DocumentProtection";
@@ -47,17 +47,16 @@ describe("document protection", () => {
                 });
             })
                 .then(() => {
-                    const request = new PutProtectDocumentRequest();
+                    const request = new ProtectDocumentRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.protectionRequest = new ProtectionRequest({ newPassword: "123" });
                     request.destFileName = "Out/" + remoteFileName;
 
                     // Act
-                    return wordsApi.putProtectDocument(request)
+                    return wordsApi.protectDocument(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.protectionData).to.exist.and.not.equal(null);
@@ -92,7 +91,6 @@ describe("document protection", () => {
                     return wordsApi.getDocumentProtection(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.protectionData).to.exist.and.not.equal(null);
@@ -119,16 +117,15 @@ describe("document protection", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostChangeDocumentProtectionRequest();
+                    const request = new ProtectDocumentRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.protectionRequest = new ProtectionRequest({ newPassword: "" });
 
                     // Act
-                    return wordsApi.postChangeDocumentProtection(request)
+                    return wordsApi.protectDocument(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.protectionData).to.exist.and.not.equal(null);
@@ -155,16 +152,15 @@ describe("document protection", () => {
                 });
             })
                 .then(() => {
-                    const request = new DeleteUnprotectDocumentRequest();
+                    const request = new UnprotectDocumentRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.protectionRequest = new ProtectionRequest({ password: "aspose" });
 
                     // Act
-                    return wordsApi.deleteUnprotectDocument(request)
+                    return wordsApi.unprotectDocument(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.protectionData).to.exist.and.not.equal(null);

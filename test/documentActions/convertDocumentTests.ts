@@ -27,7 +27,7 @@ import "mocha";
 import * as testWithTestCases from "mocha-cases";
 
 import * as fs from "fs";
-import { GetDocumentWithFormatRequest, PostDocumentSaveAsRequest, PutConvertDocumentRequest, PutDocumentSaveAsTiffRequest, SaveOptionsData, TiffSaveOptionsData } from "../../src/model/model";
+import { GetDocumentWithFormatRequest, SaveAsRequest, ConvertDocumentRequest, SaveAsTiffRequest, SaveOptionsData, TiffSaveOptionsData } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentActions/ConvertDocument";
@@ -58,7 +58,7 @@ describe("convert document", () => {
              * @param value destination fromat
              */
             function runner(value) {
-                const request = new PostDocumentSaveAsRequest({
+                const request = new SaveAsRequest({
                     saveOptionsData: new SaveOptionsData({
                         saveFormat: value,
                         fileName: "Out/TestPostDocumentSaveAs." + value,
@@ -69,10 +69,9 @@ describe("convert document", () => {
                 request.folder = remotePath;
 
                 // Act
-                return wordsApi.postDocumentSaveAs(request)
+                return wordsApi.saveAs(request)
                     .then((result) => {
                         // Assert
-                        expect(result.body.code).to.equal(200);
                         expect(result.response.statusCode).to.equal(200);
 
                         expect(result.body.saveResult).to.exist.and.not.equal(null);
@@ -92,13 +91,13 @@ describe("convert document", () => {
              * @param value destination fromat
              */
             function runner(value) {
-                const request = new PutConvertDocumentRequest({
+                const request = new ConvertDocumentRequest({
                     format: value,
                     document: fs.readFileSync(localPath),
                 });
 
                 // Act
-                return wordsApi.putConvertDocument(request)
+                return wordsApi.convertDocument(request)
                     .then((result) => {
                         // Assert                
                         expect(result.response.statusCode).to.equal(200);
@@ -116,7 +115,7 @@ describe("convert document", () => {
         describe("putDocumentSaveAsTiff function", () => {
             it("should return response with code 200", () => {
 
-                const request = new PutDocumentSaveAsTiffRequest({
+                const request = new SaveAsTiffRequest({
                     saveOptions: new TiffSaveOptionsData({
                         saveFormat: "tiff",
                         fileName: "Out/TestPostDocumentSaveAsTiff.tiff",
@@ -127,10 +126,9 @@ describe("convert document", () => {
                 request.folder = remotePath;
 
                 // Act
-                return wordsApi.putDocumentSaveAsTiff(request)
+                return wordsApi.saveAsTiff(request)
                     .then((result) => {
                         // Assert
-                        expect(result.body.code).to.equal(200);
                         expect(result.response.statusCode).to.equal(200);
 
                         expect(result.body.saveResult).to.exist.and.not.equal(null);
@@ -200,7 +198,7 @@ describe("convert document", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostDocumentSaveAsRequest({
+                    const request = new SaveAsRequest({
                         saveOptionsData: new SaveOptionsData({
                             saveFormat: "docx",
                             fileName: "Out/TestPostDocumentSavePdfAsDocx.docx",
@@ -211,10 +209,9 @@ describe("convert document", () => {
                     request.folder = remotePath;
 
                     // Act
-                    return wordsApi.postDocumentSaveAs(request)
+                    return wordsApi.saveAs(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.saveResult).to.exist.and.not.equal(null);

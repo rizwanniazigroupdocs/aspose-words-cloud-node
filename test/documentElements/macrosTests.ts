@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { DeleteDocumentMacrosRequest } from "../../src/model/model";
+import { DeleteMacrosRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Macros";
@@ -48,15 +48,14 @@ describe("macros", () => {
                 });
             })
                 .then(() => {
-                    const request = new DeleteDocumentMacrosRequest();
+                    const request = new DeleteMacrosRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     
                     // Act
-                    return wordsApi.deleteDocumentMacros(request)
+                    return wordsApi.deleteMacros(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });

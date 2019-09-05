@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { DocumentEntry, DocumentEntryList, PostAppendDocumentRequest } from "../../src/model/model";
+import { DocumentEntry, DocumentEntryList, AppendDocumentRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentActions/AppendDocument";
@@ -51,17 +51,16 @@ describe("postAppendDocument function", () => {
                 const docEntry = new DocumentEntry();
                 docEntry.href = remotePath + "/" + remoteFileName;
                 docEntry.importFormatMode = "KeepSourceFormatting";
-                const request = new PostAppendDocumentRequest();
+                const request = new AppendDocumentRequest();
                 request.documentList = new DocumentEntryList();
                 request.documentList.documentEntries = [docEntry];
                 request.name = remoteFileName;
                 request.folder = remotePath;
 
                 // Act
-                return wordsApi.postAppendDocument(request)
+                return wordsApi.appendDocument(request)
                     .then((result) => {
                         // Assert
-                        expect(result.body.code).to.equal(200);
                         expect(result.response.statusCode).to.equal(200);
 
                         expect(result.body.document.links.length).to.greaterThan(10);

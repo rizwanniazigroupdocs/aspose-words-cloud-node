@@ -58,7 +58,6 @@ describe("tableRow", () => {
                     return wordsApi.getTableRow(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.row).to.exist.and.not.equal(null);
@@ -94,7 +93,6 @@ describe("tableRow", () => {
                     return wordsApi.insertTableRow(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.row).to.exist.and.not.equal(null);
@@ -130,7 +128,6 @@ describe("tableRow", () => {
                     return wordsApi.deleteTableRow(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });
@@ -164,7 +161,6 @@ describe("tableRow", () => {
                     return wordsApi.getTableRowFormat(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.rowFormat).to.exist.and.not.equal(null);
@@ -206,7 +202,6 @@ describe("tableRow", () => {
                     return wordsApi.updateTableRowFormat(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.rowFormat).to.exist.and.not.equal(null);

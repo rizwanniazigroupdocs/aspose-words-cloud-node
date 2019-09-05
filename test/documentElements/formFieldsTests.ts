@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { DeleteFormFieldRequest, FormFieldTextInput, GetFormFieldRequest, GetFormFieldsRequest, PostFormFieldRequest, PutFormFieldRequest } from "../../src/model/model";
+import { DeleteFormFieldRequest, FormFieldTextInput, GetFormFieldRequest, GetFormFieldsRequest, InsertFormFieldRequest, UpdateFormFieldRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/FormFields";
@@ -57,7 +57,6 @@ describe("formFields", () => {
                     return wordsApi.getFormFields(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.formFields).to.exist.and.not.equal(null);
@@ -92,7 +91,6 @@ describe("formFields", () => {
                     return wordsApi.getFormField(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.formField).to.exist.and.not.equal(null);
@@ -119,7 +117,7 @@ describe("formFields", () => {
                 });
             })
                 .then(() => {
-                    const request = new PutFormFieldRequest();
+                    const request = new InsertFormFieldRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.nodePath = "sections/0/paragraphs/0";
@@ -134,10 +132,9 @@ describe("formFields", () => {
                     });
                     
                     // Act
-                    return wordsApi.putFormField(request)
+                    return wordsApi.insertFormField(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.formField).to.exist.and.not.equal(null);
@@ -164,7 +161,7 @@ describe("formFields", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostFormFieldRequest();
+                    const request = new UpdateFormFieldRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.nodePath = "sections/0";
@@ -180,10 +177,9 @@ describe("formFields", () => {
                     });
 
                     // Act
-                    return wordsApi.postFormField(request)
+                    return wordsApi.updateFormField(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.formField).to.exist.and.not.equal(null);
@@ -219,7 +215,6 @@ describe("formFields", () => {
                     return wordsApi.deleteFormField(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });

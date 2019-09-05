@@ -57,7 +57,6 @@ describe("documentProperties", () => {
                     return wordsApi.getDocumentProperties(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.documentProperties).to.exist.and.not.equal(null);
@@ -93,7 +92,6 @@ describe("documentProperties", () => {
                     return wordsApi.getDocumentProperty(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.documentProperty).to.exist.and.not.equal(null);
@@ -130,7 +128,6 @@ describe("documentProperties", () => {
                     return wordsApi.createOrUpdateDocumentProperty(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.documentProperty).to.exist.and.not.equal(null);
@@ -166,7 +163,6 @@ describe("documentProperties", () => {
                     return wordsApi.deleteDocumentProperty(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });

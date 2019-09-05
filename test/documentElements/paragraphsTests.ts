@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { DeleteParagraphRequest, GetDocumentParagraphFormatRequest, GetDocumentParagraphRequest, GetDocumentParagraphsRequest, ParagraphFormat, ParagraphInsert, PostDocumentParagraphFormatRequest, PutParagraphRequest, RenderParagraphRequest } from "../../src/model/model";
+import { DeleteParagraphRequest, GetParagraphFormatRequest, GetParagraphRequest, GetParagraphsRequest, ParagraphFormat, ParagraphInsert, UpdateParagraphFormatRequest, InsertParagraphRequest, RenderParagraphRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Paragraphs";
@@ -48,15 +48,14 @@ describe("paragraphs", () => {
                 });
             })
                 .then(() => {
-                    const request = new GetDocumentParagraphsRequest();
+                    const request = new GetParagraphsRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
 
                     // Act
-                    return wordsApi.getDocumentParagraphs(request)
+                    return wordsApi.getParagraphs(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.paragraphs).to.exist.and.not.equal(null);
@@ -82,16 +81,15 @@ describe("paragraphs", () => {
                 });
             })
                 .then(() => {
-                    const request = new GetDocumentParagraphRequest();
+                    const request = new GetParagraphRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.index = 0;
 
                     // Act
-                    return wordsApi.getDocumentParagraph(request)
+                    return wordsApi.getParagraph(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.paragraph).to.exist.and.not.equal(null);
@@ -117,17 +115,16 @@ describe("paragraphs", () => {
                 });
             })
                 .then(() => {
-                    const request = new PutParagraphRequest();
+                    const request = new InsertParagraphRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.paragraph =  new ParagraphInsert ({ text: "This is a new paragraph for your document" });
                     request.nodePath = "sections/0";
 
                     // Act
-                    return wordsApi.putParagraph(request)
+                    return wordsApi.insertParagraph(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.paragraph).to.exist.and.not.equal(null);
@@ -162,7 +159,6 @@ describe("paragraphs", () => {
                     return wordsApi.deleteParagraph(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });
@@ -220,16 +216,15 @@ describe("paragraphs", () => {
                 });
             })
                 .then(() => {
-                    const request = new GetDocumentParagraphFormatRequest();
+                    const request = new GetParagraphFormatRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.index = 0;
 
                     // Act
-                    return wordsApi.getDocumentParagraphFormat(request)
+                    return wordsApi.getParagraphFormat(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.paragraphFormat).to.exist.and.not.equal(null);
@@ -255,7 +250,7 @@ describe("paragraphs", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostDocumentParagraphFormatRequest();
+                    const request = new UpdateParagraphFormatRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.index = 0;
@@ -266,10 +261,9 @@ describe("paragraphs", () => {
                     });
 
                     // Act
-                    return wordsApi.postDocumentParagraphFormat(request)
+                    return wordsApi.updateParagraphFormat(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.paragraphFormat).to.exist.and.not.equal(null);

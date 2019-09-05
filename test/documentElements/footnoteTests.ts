@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { DeleteFootnoteRequest, Footnote, GetFootnoteRequest, GetFootnotesRequest, PostFootnoteRequest, PutFootnoteRequest } from "../../src/model/model";
+import { DeleteFootnoteRequest, Footnote, GetFootnoteRequest, GetFootnotesRequest, UpdateFootnoteRequest, InsertFootnoteRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Footnotes";
@@ -56,7 +56,6 @@ describe("footnotes", () => {
                     return wordsApi.getFootnotes(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.footnotes).to.exist.and.not.equal(null);
@@ -91,7 +90,6 @@ describe("footnotes", () => {
                     return wordsApi.getFootnote(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.footnote).to.exist.and.not.equal(null);
@@ -117,7 +115,7 @@ describe("footnotes", () => {
                 });
             })
                 .then(() => {
-                    const request = new PutFootnoteRequest();
+                    const request = new InsertFootnoteRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.footnoteDto = new Footnote({
@@ -126,10 +124,9 @@ describe("footnotes", () => {
                     });
 
                     // Act
-                    return wordsApi.putFootnote(request)
+                    return wordsApi.insertFootnote(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.footnote).to.exist.and.not.equal(null);
@@ -155,17 +152,16 @@ describe("footnotes", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostFootnoteRequest();
+                    const request = new UpdateFootnoteRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.index = 0;
                     request.footnoteDto = new Footnote({ text: "new text" });
 
                     // Act
-                    return wordsApi.postFootnote(request)
+                    return wordsApi.updateFootnote(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.footnote).to.exist.and.not.equal(null);
@@ -200,7 +196,6 @@ describe("footnotes", () => {
                     return wordsApi.deleteFootnote(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });

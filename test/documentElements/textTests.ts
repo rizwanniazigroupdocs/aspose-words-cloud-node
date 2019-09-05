@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { GetDocumentTextItemsRequest, PostReplaceTextRequest, ReplaceTextRequest, SearchRequest } from "../../src/model/model";
+import { GetRunsRequest, ReplaceTextRequest, ReplaceTextParameters, SearchRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Text";
@@ -48,18 +48,17 @@ describe("text", () => {
                 });
             })
                 .then(() => {
-                    const request = new GetDocumentTextItemsRequest();
+                    const request = new GetRunsRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
 
                     // Act
-                    return wordsApi.getDocumentTextItems(request)
+                    return wordsApi.getRuns(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
-                            expect(result.body.textItems).to.exist.and.not.equal(null);
+                            expect(result.body.runs).to.exist.and.not.equal(null);
                         });
                 });
         });
@@ -82,16 +81,15 @@ describe("text", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostReplaceTextRequest();
+                    const request = new ReplaceTextRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
-                    request.replaceText = new ReplaceTextRequest ({ oldValue: "aspose", newValue: "aspose new" });
+                    request.replaceText = new ReplaceTextParameters ({ oldValue: "aspose", newValue: "aspose new" });
 
                     // Act
-                    return wordsApi.postReplaceText(request)
+                    return wordsApi.replaceText(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.matches).to.exist.and.not.equal(null);
@@ -126,7 +124,6 @@ describe("text", () => {
                     return wordsApi.search(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.searchResults).to.exist.and.not.equal(null);

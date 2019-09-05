@@ -56,7 +56,6 @@ describe("sections", () => {
                     return wordsApi.getSections(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.sections).to.exist.and.not.equal(null);
@@ -91,7 +90,6 @@ describe("sections", () => {
                     return wordsApi.getSection(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.section).to.exist.and.not.equal(null);
@@ -126,7 +124,6 @@ describe("sections", () => {
                     return wordsApi.getSectionPageSetup(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.pageSetup).to.exist.and.not.equal(null);
@@ -168,7 +165,6 @@ describe("sections", () => {
                     return wordsApi.updateSectionPageSetup(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.pageSetup).to.exist.and.not.equal(null);

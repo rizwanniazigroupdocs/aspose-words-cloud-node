@@ -56,7 +56,6 @@ describe("mathObjects", () => {
                     return wordsApi.getOfficeMathObjects(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.officeMathObjects).to.exist.and.not.equal(null);
@@ -91,7 +90,6 @@ describe("mathObjects", () => {
                     return wordsApi.getOfficeMathObject(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.officeMathObject).to.exist.and.not.equal(null);
@@ -160,7 +158,6 @@ describe("mathObjects", () => {
                     return wordsApi.deleteOfficeMathObject(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });

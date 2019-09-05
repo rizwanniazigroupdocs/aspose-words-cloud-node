@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { PostSplitDocumentRequest } from "../../src/model/model";
+import { SplitDocumentRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentActions/SplitDocument";
@@ -48,7 +48,7 @@ describe("postSplitDocument function", () => {
             });
         })
             .then(() => {                
-                const request = new PostSplitDocumentRequest();                
+                const request = new SplitDocumentRequest();                
                 request.name = remoteFileName;
                 request.folder = remotePath;
                 request.format = "text";
@@ -57,10 +57,9 @@ describe("postSplitDocument function", () => {
                 request.destFileName = "Out/TestPostSplitDocument.txt";
 
                 // Act
-                return wordsApi.postSplitDocument(request)
+                return wordsApi.splitDocument(request)
                     .then((result) => {
                         // Assert
-                        expect(result.body.code).to.equal(200);
                         expect(result.response.statusCode).to.equal(200);
 
                         expect(result.body.splitResult).to.exist.and.not.equal(null);

@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { DeleteFieldRequest, DeleteFieldsRequest, Field, GetFieldRequest, GetFieldsRequest, PageNumber, PostFieldRequest, PostInsertPageNumbersRequest, PostUpdateDocumentFieldsRequest, PutFieldRequest } from "../../src/model/model";
+import { DeleteFieldRequest, DeleteFieldsRequest, Field, GetFieldRequest, GetFieldsRequest, PageNumber, InsertFieldRequest, InsertPageNumbersRequest, UpdateFieldsRequest, UpdateFieldRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Fields";
@@ -56,7 +56,6 @@ describe("fields", () => {
                     return wordsApi.getFields(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.fields).to.exist.and.not.equal(null);
@@ -91,7 +90,6 @@ describe("fields", () => {
                     return wordsApi.getField(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.field).to.exist.and.not.equal(null);
@@ -117,16 +115,15 @@ describe("fields", () => {
                 });
             })
                 .then(() => {
-                    const request = new PutFieldRequest();
+                    const request = new InsertFieldRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.field = new Field({ fieldCode: "{ NUMPAGES }", nodeId: "0.0.3" });
 
                     // Act
-                    return wordsApi.putField(request)
+                    return wordsApi.insertField(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.field).to.exist.and.not.equal(null);
@@ -152,7 +149,7 @@ describe("fields", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostFieldRequest();
+                    const request = new UpdateFieldRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.nodePath = "sections/0/paragraphs/0";
@@ -160,10 +157,9 @@ describe("fields", () => {
                     request.field = new Field({ fieldCode: "{ NUMPAGES }" });
 
                     // Act
-                    return wordsApi.postField(request)
+                    return wordsApi.updateField(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.field).to.exist.and.not.equal(null);
@@ -198,7 +194,6 @@ describe("fields", () => {
                     return wordsApi.deleteField(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });
@@ -230,7 +225,6 @@ describe("fields", () => {
                     return wordsApi.deleteFields(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });
@@ -254,16 +248,15 @@ describe("fields", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostInsertPageNumbersRequest();
+                    const request = new InsertPageNumbersRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.pageNumber = new PageNumber ({ alignment: "center", format: "{PAGE} of {NUMPAGES}" });
 
                     // Act
-                    return wordsApi.postInsertPageNumbers(request)
+                    return wordsApi.insertPageNumbers(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.document).to.exist.and.not.equal(null);
@@ -289,15 +282,14 @@ describe("fields", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostUpdateDocumentFieldsRequest();
+                    const request = new UpdateFieldsRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;                    
 
                     // Act
-                    return wordsApi.postUpdateDocumentFields(request)
+                    return wordsApi.updateFields(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.document).to.exist.and.not.equal(null);

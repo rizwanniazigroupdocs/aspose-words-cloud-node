@@ -57,7 +57,6 @@ describe("document revisions", () => {
                     return wordsApi.acceptAllRevisions(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.result).to.exist.and.not.equal(null);
@@ -92,7 +91,6 @@ describe("document revisions", () => {
                     return wordsApi.rejectAllRevisions(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.result).to.exist.and.not.equal(null);

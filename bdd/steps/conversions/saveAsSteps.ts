@@ -24,7 +24,7 @@
 
 import { expect } from "chai";
 import { Before, Given, Then, When } from "cucumber";
-import { GetDocumentTextItemsRequest } from "../../../src/api";
+import { GetRunsRequest } from "../../../src/api";
 import * as BaseTest from "../../../test/baseTest";
 
 Before({ tags: "@saveAs" }, function() {
@@ -43,7 +43,7 @@ When(/^I execute conversion from storage \(POST SaveAs\)$/, function() {
     const wordsApi = BaseTest.initializeWordsApi();
     const request = this.request;
 
-    return wordsApi.postDocumentSaveAs(request)
+    return wordsApi.saveAs(request)
         .then((result) => {
             this.response = result;            
         });
@@ -51,12 +51,12 @@ When(/^I execute conversion from storage \(POST SaveAs\)$/, function() {
 
 Then(/^symbols are encoded properly$/, function() {    
     const wordsApi = BaseTest.initializeWordsApi();
-    const request = new GetDocumentTextItemsRequest({
+    const request = new GetRunsRequest({
         folder: BaseTest.remoteBaseFolder + "DocumentActions/ConvertDocument/out/saveas",
         name: "TableDocumentDoc.doc",
     });
 
-    wordsApi.getDocumentTextItems(request).then((result) => {
-        expect(result.body.textItems.list[0].text).to.equal("строка");        
+    wordsApi.getRuns(request).then((result) => {
+        expect(result.body.runs.list[0].text).to.equal("строка");        
     });
 });

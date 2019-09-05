@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import * as fs from "fs";
 import "mocha";
-import { PostExecuteTemplateRequest, PutExecuteTemplateOnlineRequest } from "../../../src/model/model";
+import { ExecuteMailMergeRequest, ExecuteMailMergeOnlineRequest } from "../../../src/model/model";
 import * as BaseTest from "../../baseTest";
 
 const testFolder = "DocumentActions/MailMerge";
@@ -38,13 +38,13 @@ describe("executeTemplate", () => {
             const templateLocalPath = BaseTest.localBaseTestDataFolder + testFolder + "/SampleExecuteTemplate.docx";
             const dataLocalPath = BaseTest.localBaseTestDataFolder + testFolder + "/SampleExecuteTemplateData.txt";
 
-            const request = new PutExecuteTemplateOnlineRequest({
+            const request = new ExecuteMailMergeOnlineRequest({
                 data: fs.readFileSync(dataLocalPath),
                 template: fs.readFileSync(templateLocalPath),
             });
 
             // Act
-            return wordsApi.putExecuteTemplateOnline(request)
+            return wordsApi.executeMailMergeOnline(request)
                 .then((result) => {
                     // Assert                
                     expect(result.response.statusCode).to.equal(200);
@@ -73,17 +73,16 @@ describe("executeTemplate", () => {
                     });
                 })
                     .then(() => {
-                        const request = new PostExecuteTemplateRequest();
+                        const request = new ExecuteMailMergeRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
                         request.data = fs.readFileSync(dataLocalPath, "utf8");
                         request.withRegions = false;
 
                         // Act
-                        return wordsApi.postExecuteTemplate(request)
+                        return wordsApi.executeMailMerge(request)
                             .then((result) => {
                                 // Assert
-                                expect(result.body.code).to.equal(200);
                                 expect(result.response.statusCode).to.equal(200);
 
                                 expect(result.body.document.isEncrypted).to.equal(false);
@@ -110,17 +109,16 @@ describe("executeTemplate", () => {
                     });
                 })
                     .then(() => {
-                        const request = new PostExecuteTemplateRequest();
+                        const request = new ExecuteMailMergeRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
                         request.data = fs.readFileSync(dataLocalPath, "utf8");
                         request.withRegions = true;
 
                         // Act
-                        return wordsApi.postExecuteTemplate(request)
+                        return wordsApi.executeMailMerge(request)
                             .then((result) => {
                                 // Assert
-                                expect(result.body.code).to.equal(200);
                                 expect(result.response.statusCode).to.equal(200);
 
                                 expect(result.body.document.isEncrypted).to.equal(false);
@@ -147,17 +145,16 @@ describe("executeTemplate", () => {
                     });
                 })
                     .then(() => {
-                        const request = new PostExecuteTemplateRequest();
+                        const request = new ExecuteMailMergeRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
                         request.data = fs.readFileSync(dataLocalPath, "utf8");
                         // request.withRegions = false;
 
                         // Act
-                        return wordsApi.postExecuteTemplate(request)
+                        return wordsApi.executeMailMerge(request)
                             .then((result) => {
                                 // Assert
-                                expect(result.body.code).to.equal(200);
                                 expect(result.response.statusCode).to.equal(200);
 
                                 expect(result.body.document.isEncrypted).to.equal(false);

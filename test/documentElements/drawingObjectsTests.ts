@@ -26,7 +26,7 @@ import { expect } from "chai";
 import * as fs from "fs";
 import "mocha";
 
-import { DeleteDrawingObjectRequest, GetDocumentDrawingObjectByIndexRequest, GetDocumentDrawingObjectImageDataRequest, GetDocumentDrawingObjectOleDataRequest, GetDocumentDrawingObjectsRequest, PostDrawingObjectRequest, PutDrawingObjectRequest, RenderDrawingObjectRequest } from "../../src/model/model";
+import { DeleteDrawingObjectRequest, GetDocumentDrawingObjectByIndexRequest, GetDocumentDrawingObjectImageDataRequest, GetDocumentDrawingObjectOleDataRequest, GetDocumentDrawingObjectsRequest, InsertDrawingObjectRequest, UpdateDrawingObjectRequest, RenderDrawingObjectRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/DrawingObjects";
@@ -57,7 +57,6 @@ describe("drawingObjects", () => {
                     return wordsApi.getDocumentDrawingObjects(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.drawingObjects).to.exist.and.not.equal(null);
@@ -92,7 +91,6 @@ describe("drawingObjects", () => {
                     return wordsApi.getDocumentDrawingObjectByIndex(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.drawingObject).to.exist.and.not.equal(null);
@@ -219,17 +217,16 @@ describe("drawingObjects", () => {
                 });
             })
                 .then(() => {
-                    const request = new PutDrawingObjectRequest();
+                    const request = new InsertDrawingObjectRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.drawingObject = "{\"Left\": 0}";
                     request.imageFile = fs.readFileSync(imagePath);
                    
                     // Act
-                    return wordsApi.putDrawingObject(request)
+                    return wordsApi.insertDrawingObject(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.drawingObject).to.exist.and.not.equal(null);
@@ -257,7 +254,7 @@ describe("drawingObjects", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostDrawingObjectRequest();
+                    const request = new UpdateDrawingObjectRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.index = 0;
@@ -265,10 +262,9 @@ describe("drawingObjects", () => {
                     request.imageFile = fs.readFileSync(imagePath);
                     
                     // Act
-                    return wordsApi.postDrawingObject(request)
+                    return wordsApi.updateDrawingObject(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.drawingObject).to.exist.and.not.equal(null);
@@ -304,7 +300,6 @@ describe("drawingObjects", () => {
                     return wordsApi.deleteDrawingObject(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });

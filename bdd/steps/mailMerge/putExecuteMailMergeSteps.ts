@@ -29,7 +29,7 @@ When(/^I execute mail merge online$/, function() {
     const wordsApi = BaseTest.initializeWordsApi();
     const request = this.request;
         
-    return wordsApi.putExecuteMailMergeOnline(request)
+    return wordsApi.executeMailMergeOnline(request)
         .then((result) => {                        
             this.response = result;            
         });

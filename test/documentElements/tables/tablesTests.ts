@@ -56,7 +56,6 @@ describe("tables", () => {
                     return wordsApi.getTables(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.tables).to.exist.and.not.equal(null);
@@ -91,7 +90,6 @@ describe("tables", () => {
                     return wordsApi.getTable(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.table).to.exist.and.not.equal(null);
@@ -126,7 +124,6 @@ describe("tables", () => {
                     return wordsApi.insertTable(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.table).to.exist.and.not.equal(null);
@@ -161,7 +158,6 @@ describe("tables", () => {
                     return wordsApi.deleteTable(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });

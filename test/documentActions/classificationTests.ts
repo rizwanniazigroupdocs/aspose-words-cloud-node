@@ -43,8 +43,6 @@ describe("Text classification", () => {
             return wordsApi.classify(request)
                 .then((result) => {
                     // Assert
-                    
-                    expect(result.body.code).to.equal(200);
                     expect(result.response.statusCode).to.equal(200);
                 });
         });
@@ -74,7 +72,6 @@ describe("Text classification", () => {
             return wordsApi.classifyDocument(request)
               .then((result) => {
                   // Assert
-                  expect(result.body.code).to.equal(200);
                   expect(result.response.statusCode).to.equal(200);
               });
         });
@@ -104,7 +101,6 @@ describe("Text classification", () => {
             return wordsApi.classifyDocument(request)
               .then((result) => {
                   // Assert
-                  expect(result.body.code).to.equal(200);
                   expect(result.response.statusCode).to.equal(200);
               });
         });

@@ -56,7 +56,6 @@ describe("hyperlinks", () => {
                     return wordsApi.getDocumentHyperlinks(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.hyperlinks).to.exist.and.not.equal(null);
@@ -91,7 +90,6 @@ describe("hyperlinks", () => {
                     return wordsApi.getDocumentHyperlinkByIndex(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.hyperlink).to.exist.and.not.equal(null);

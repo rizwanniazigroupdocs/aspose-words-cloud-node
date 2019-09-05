@@ -53,7 +53,7 @@ When(/^I execute template$/, function() {
     const wordsApi = BaseTest.initializeWordsApi();
     const request = this.request;
 
-    return wordsApi.postExecuteTemplate(request)
+    return wordsApi.executeMailMerge(request)
         .then((result) => {
             this.response = result;
         });

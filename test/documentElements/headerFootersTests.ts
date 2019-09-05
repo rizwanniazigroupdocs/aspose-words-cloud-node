@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { DeleteHeaderFooterRequest, DeleteHeadersFootersRequest, GetHeaderFooterOfSectionRequest, GetHeaderFooterRequest, GetHeaderFootersRequest, PutHeaderFooterRequest } from "../../src/model/model";
+import { DeleteHeaderFooterRequest, DeleteHeadersFootersRequest, GetHeaderFooterOfSectionRequest, GetHeaderFooterRequest, GetHeaderFootersRequest, InsertHeaderFooterRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/HeaderFooters";
@@ -56,7 +56,6 @@ describe("headersFooters", () => {
                     return wordsApi.getHeaderFooters(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.headerFooters).to.exist.and.not.equal(null);
@@ -91,7 +90,6 @@ describe("headersFooters", () => {
                     return wordsApi.getHeaderFooter(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.headerFooter).to.exist.and.not.equal(null);
@@ -127,7 +125,6 @@ describe("headersFooters", () => {
                     return wordsApi.getHeaderFooterOfSection(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.headerFooter).to.exist.and.not.equal(null);
@@ -153,16 +150,15 @@ describe("headersFooters", () => {
                 });
             })
                 .then(() => {
-                    const request = new PutHeaderFooterRequest();
+                    const request = new InsertHeaderFooterRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.headerFooterType = "FooterEven";
 
                     // Act
-                    return wordsApi.putHeaderFooter(request)
+                    return wordsApi.insertHeaderFooter(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.headerFooter).to.exist.and.not.equal(null);
@@ -197,7 +193,6 @@ describe("headersFooters", () => {
                     return wordsApi.deleteHeaderFooter(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });
@@ -229,7 +224,6 @@ describe("headersFooters", () => {
                     return wordsApi.deleteHeadersFooters(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });

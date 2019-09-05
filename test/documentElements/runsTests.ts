@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { DeleteRunRequest, Font, GetDocumentParagraphRunFontRequest, GetDocumentParagraphRunRequest, GetDocumentParagraphRunsRequest, PostDocumentParagraphRunFontRequest, PostRunRequest, PutRunRequest, Run } from "../../src/model/model";
+import { DeleteRunRequest, Font, GetRunFontRequest, GetRunRequest, GetRunsRequest, UpdateRunFontRequest, UpdateRunRequest, InsertRunRequest, Run } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Runs";
@@ -48,16 +48,15 @@ describe("runs", () => {
                 });
             })
                 .then(() => {
-                    const request = new GetDocumentParagraphRunsRequest();
+                    const request = new GetRunsRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.paragraphPath = "sections/0/paragraphs/0";
 
                     // Act
-                    return wordsApi.getDocumentParagraphRuns(request)
+                    return wordsApi.getRuns(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.runs).to.exist.and.not.equal(null);
@@ -83,17 +82,16 @@ describe("runs", () => {
                 });
             })
                 .then(() => {
-                    const request = new GetDocumentParagraphRunRequest();
+                    const request = new GetRunRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.paragraphPath = "sections/0/paragraphs/0";
                     request.index = 0;
 
                     // Act
-                    return wordsApi.getDocumentParagraphRun(request)
+                    return wordsApi.getRun(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.run).to.exist.and.not.equal(null);
@@ -119,17 +117,16 @@ describe("runs", () => {
                 });
             })
                 .then(() => {
-                    const request = new PutRunRequest();
+                    const request = new InsertRunRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.paragraphPath = "sections/0/paragraphs/0";
                     request.run = new Run({ text: "new" });
 
                     // Act
-                    return wordsApi.putRun(request)
+                    return wordsApi.insertRun(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.run).to.exist.and.not.equal(null);
@@ -155,7 +152,7 @@ describe("runs", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostRunRequest();
+                    const request = new UpdateRunRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.paragraphPath = "sections/0/paragraphs/0";
@@ -163,10 +160,9 @@ describe("runs", () => {
                     request.run = new Run({ text: "new" });
 
                     // Act
-                    return wordsApi.postRun(request)
+                    return wordsApi.updateRun(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.run).to.exist.and.not.equal(null);
@@ -202,7 +198,6 @@ describe("runs", () => {
                     return wordsApi.deleteRun(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });
@@ -226,17 +221,16 @@ describe("runs", () => {
                 });
             })
                 .then(() => {
-                    const request = new GetDocumentParagraphRunFontRequest();
+                    const request = new GetRunFontRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.paragraphPath = "sections/0/paragraphs/0";
                     request.index = 0;
 
                     // Act
-                    return wordsApi.getDocumentParagraphRunFont(request)
+                    return wordsApi.getRunFont(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.font).to.exist.and.not.equal(null);
@@ -262,7 +256,7 @@ describe("runs", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostDocumentParagraphRunFontRequest();
+                    const request = new UpdateRunFontRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.paragraphPath = "sections/0/paragraphs/0";
@@ -270,10 +264,9 @@ describe("runs", () => {
                     request.fontDto = new Font({ bold: true });
 
                     // Act
-                    return wordsApi.postDocumentParagraphRunFont(request)
+                    return wordsApi.updateRunFont(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.font).to.exist.and.not.equal(null);

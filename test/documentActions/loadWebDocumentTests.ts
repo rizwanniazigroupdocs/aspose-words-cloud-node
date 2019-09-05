@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { LoadWebDocumentData, PostLoadWebDocumentRequest, SaveOptionsData } from "../../src/model/model";
+import { LoadWebDocumentData, LoadWebDocumentRequest, SaveOptionsData } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 describe("postLoadWebDocument function", () => {
@@ -49,13 +49,12 @@ describe("postLoadWebDocument function", () => {
         body.loadingDocumentUrl = "http://google.com";
         body.saveOptions = saveOptions;
 
-        const request = new PostLoadWebDocumentRequest({data: body});
+        const request = new LoadWebDocumentRequest({data: body});
 
         // Act
-        return wordsApi.postLoadWebDocument(request)
+        return wordsApi.loadWebDocument(request)
             .then((result) => {
                 // Assert
-                expect(result.body.code).to.equal(200);
                 expect(result.response.statusCode).to.equal(200);
 
                 expect(result.body.saveResult).to.exist.and.not.equal(null);

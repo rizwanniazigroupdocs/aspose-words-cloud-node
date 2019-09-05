@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { CompareData, PostCompareDocumentRequest } from "../../src/model/model";
+import { CompareData, CompareDocumentRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentActions/CompareDocument";
@@ -58,17 +58,16 @@ describe("compareDocument function", () => {
             });
         })
             .then(() => {
-                const request = new PostCompareDocumentRequest();
+                const request = new CompareDocumentRequest();
                 request.name = remoteName1;
                 request.folder = remotePath;
                 request.destFileName = "TestCompareDocumentOut.doc";
                 request.compareData = new CompareData({ author: "author", comparingWithDocument: remotePath + "/" + remoteName2, dateTime: new Date(2015, 10, 26) });
 
                 // Act
-                return wordsApi.postCompareDocument(request)
+                return wordsApi.compareDocument(request)
                     .then((result) => {
                         // Assert
-                        expect(result.body.code).to.equal(200);
                         expect(result.response.statusCode).to.equal(200);
 
                         expect(result.body.document.links.length).to.greaterThan(10);

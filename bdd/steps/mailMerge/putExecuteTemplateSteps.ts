@@ -36,7 +36,7 @@ When(/^I execute template online$/, function() {
     const wordsApi = BaseTest.initializeWordsApi();
     const request = this.request;
         
-    return wordsApi.putExecuteTemplateOnline(request)
+    return wordsApi.executeMailMergeOnline(request)
         .then((result) => {                        
             this.response = result;            
         });

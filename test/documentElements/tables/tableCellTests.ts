@@ -58,7 +58,6 @@ describe("tableCell", () => {
                     return wordsApi.getTableCell(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.cell).to.exist.and.not.equal(null);
@@ -94,7 +93,6 @@ describe("tableCell", () => {
                     return wordsApi.insertTableCell(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.cell).to.exist.and.not.equal(null);
@@ -130,7 +128,6 @@ describe("tableCell", () => {
                     return wordsApi.deleteTableCell(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });
@@ -164,7 +161,6 @@ describe("tableCell", () => {
                     return wordsApi.getTableCellFormat(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.cellFormat).to.exist.and.not.equal(null);
@@ -206,7 +202,6 @@ describe("tableCell", () => {
                     return wordsApi.updateTableCellFormat(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.cellFormat).to.exist.and.not.equal(null);

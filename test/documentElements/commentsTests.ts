@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { Comment, DeleteCommentRequest, DocumentPosition, GetCommentRequest, GetCommentsRequest, NodeLink, PostCommentRequest, PutCommentRequest } from "../../src/model/model";
+import { Comment, DeleteCommentRequest, DocumentPosition, GetCommentRequest, GetCommentsRequest, NodeLink, InsertCommentRequest, UpdateCommentRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Comments";
@@ -58,7 +58,6 @@ describe("comments", () => {
                     return wordsApi.getComment(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.comment).to.exist.and.not.equal(null);
@@ -93,7 +92,6 @@ describe("comments", () => {
                     return wordsApi.getComments(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.comments).to.exist.and.not.equal(null);
@@ -120,7 +118,7 @@ describe("comments", () => {
                 });
             })
                 .then(() => {
-                    const request = new PutCommentRequest();
+                    const request = new InsertCommentRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
 
@@ -137,10 +135,9 @@ describe("comments", () => {
                     request.comment.text = "A new Comment";
 
                     // Act
-                    return wordsApi.putComment(request)
+                    return wordsApi.insertComment(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.comment).to.exist.and.not.equal(null);
@@ -167,7 +164,7 @@ describe("comments", () => {
                 });
             })
                 .then(() => {
-                    const request = new PostCommentRequest();
+                    const request = new UpdateCommentRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
 
@@ -185,10 +182,9 @@ describe("comments", () => {
                     request.comment.text = "A new Comment";
 
                     // Act
-                    return wordsApi.postComment(request)
+                    return wordsApi.updateComment(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
 
                             expect(result.body.comment).to.exist.and.not.equal(null);
@@ -224,7 +220,6 @@ describe("comments", () => {
                     return wordsApi.deleteComment(request)
                         .then((result) => {
                             // Assert
-                            expect(result.body.code).to.equal(200);
                             expect(result.response.statusCode).to.equal(200);
                         });
                 });

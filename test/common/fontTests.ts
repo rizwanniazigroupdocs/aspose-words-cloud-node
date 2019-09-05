@@ -38,7 +38,6 @@ describe("fonts", () => {
             return wordsApi.resetCache(request)
                 .then((result) => {
                     // Assert
-                    expect(result.body.code).to.equal(200);
                     expect(result.response.statusCode).to.equal(200);
                 });
 
@@ -54,7 +53,6 @@ describe("fonts", () => {
             return wordsApi.getAvailableFonts(request)
                 .then((result) => {
                     // Assert
-                    expect(result.body.code).to.equal(200);
                     expect(result.response.statusCode).to.equal(200);
                 });
 

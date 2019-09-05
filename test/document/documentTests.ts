@@ -25,7 +25,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { GetDocumentRequest, PutCreateDocumentRequest } from "../../src/model/model";
+import { GetDocumentRequest, CreateDocumentRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "document";
@@ -56,7 +56,6 @@ describe("getDocument function", () => {
         return wordsApi.getDocument(request)
           .then((result) => {
             // Assert
-            expect(result.body.code).to.equal(200);
             expect(result.response.statusCode).to.equal(200);
             
             // Check document is not signed
@@ -75,15 +74,14 @@ describe("putCreateDocument function", () => {
     const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
     const filename = "TestPutCreateDocument.doc";
 
-    const request = new PutCreateDocumentRequest();
+    const request = new CreateDocumentRequest();
     request.fileName = filename;
     request.folder = remotePath;
 
     // Act
-    return wordsApi.putCreateDocument(request)
+    return wordsApi.createDocument(request)
       .then((result) => {
         // Assert
-        expect(result.body.code).to.equal(200);
         expect(result.response.statusCode).to.equal(200);
 
         expect(result.body.document.fileName).to.equal(filename);
