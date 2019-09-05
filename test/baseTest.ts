@@ -23,16 +23,15 @@
 */
 
 import { WordsApi } from "../src/api";
-import { WordsApiAvailiableVersions } from "../src/internal/wordsApiAvailiableVersions";
 
 let storageApi;
 
 /**
  * Initialize WordsApi
  */
-export function initializeWordsApi(debugMode?: boolean, version?: WordsApiAvailiableVersions) {
+export function initializeWordsApi(debugMode?: boolean) {
     const config = require("../testConfig.json");
-    const wordsApi = new WordsApi(config.AppSid, config.AppKey, config.BaseUrl, debugMode, version);
+    const wordsApi = new WordsApi(config.AppSid, config.AppKey, config.BaseUrl, debugMode);
     return wordsApi;
 }
 

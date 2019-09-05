@@ -27,7 +27,6 @@ import "mocha";
 import "mocha-sinon";
 import * as sinon from "sinon";
 
-import { WordsApiAvailiableVersions } from "../../src/internal/wordsApiAvailiableVersions";
 import { GetDocumentRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
@@ -123,36 +122,6 @@ describe("configuration tests", () => {
                     .then(() => {
                         log.restore();
                         sinon.assert.notCalled(log);
-                    });
-            });
-    });
-
-    it("request should be invoked with correct url if version is setted", () => {
-
-        const storageApi = BaseTest.initializeStorageApi();
-        const wordsApi = BaseTest.initializeWordsApi(true, WordsApiAvailiableVersions.v2);
-
-        const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
-        const remoteFileName = "TesConfiguration.docx";
-        const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
-
-        return new Promise((resolve) => {
-            storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                expect(responseMessage.status).to.equal("OK");
-                resolve();
-            });
-        })
-            .then(() => {
-                const request = new GetDocumentRequest();
-                request.documentName = remoteFileName;
-                request.folder = remotePath;                
-                const log = sinon.spy(console, "log");
-                return wordsApi.getDocument(request)
-                    .then(() => {
-                        log.restore();
-                        sinon.assert.calledWith(log,
-                            sinon.match('"uri": "https://auckland-words-cloud-staging.dynabic.com/v2/words/TesConfiguration.docx?folder=Temp%2FSdkTests%2Fnode%2FTestData%2FCommont%2FConfiguration"')
-                                .and(sinon.match('"method": "GET"')));
                     });
             });
     });
