@@ -26,61 +26,127 @@ import { expect } from "chai";
 import "mocha";
 import fs = require("fs");
 
-import { UploadFileRequest } from "../../src/model/model";
+import { UploadFileRequest, CopyFileRequest, MoveFileRequest, DownloadFileRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "document";
 
 describe("Storage file operations", () => {
     describe("Test for uploading file", () => {
-        it("should return response with code 200 and name of uploaded file", () => {
+        it("should return response with code 200 and name of uploaded file", async () => {
 
-            const wordsApi = BaseTest.initializeWordsApi(true);
+            const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
-            const remoteFileName = "TestGetParagraphs.docx";
+            const remoteFileName = "TestUploadFile.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
             const request: UploadFileRequest = {
-                file: fs.readFileSync(localPath),
+                file: fs.createReadStream(localPath),
                 path: remotePath + "/" + remoteFileName,
-                storageName: null
+                storageName: undefined
             };
 
-            return new Promise((resolve) => {
-                wordsApi.uploadFile(request)
-                    .then((result) => {
-                        expect(result.response.statusCode).to.equal(200);
-                        expect(result.body.uploaded.length).to.equal(1);
-                        resolve();
-                    });
-            });
+            return wordsApi.uploadFile(request)
+                .then((result) => {
+                    expect(result.response.statusCode).to.equal(200);
+                    expect(result.body.uploaded.length).to.equal(1);
+                });
         });
     });
 
     describe("Test for copy file", () => {
+        it("should return response with code 200 and exist in both src and dest", async () => {
 
-        const wordsApi = BaseTest.initializeWordsApi(true);
+            const wordsApi = BaseTest.initializeWordsApi();
 
-        const localName = "test_multi_pages.docx";
-        const remoteBasePathSrc = BaseTest.remoteBaseTestDataFolder + "TestCopyFileSrc.docx";
-        var remoteBasePathDest = BaseTest.remoteBaseTestDataFolder + "TestCopyFileDest{Guid.NewGuid()}.docx";
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteBasePathSrc = BaseTest.remoteBaseTestDataFolder + "TestCopyFileSrc.docx";
+            var remoteBasePathDest = BaseTest.remoteBaseTestDataFolder + "TestCopyFileDest.docx";
 
-        const remoteFileName = "TestGetParagraphs.docx";
-        const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
-
-        const request: UploadFileRequest = {
-            file: fs.readFileSync(localPath),
-            path: remotePath + "/" + remoteFileName,
-            storageName: null
-        };
-
-        return new Promise((resolve) => {
-            wordsApi.uploadFile(request)
+            return wordsApi.uploadFileToStorage(remoteBasePathSrc, localPath)
                 .then((result) => {
                     expect(result.response.statusCode).to.equal(200);
-                    expect(result.body.uploaded.length).to.equal(1);
-                    resolve();
+
+                    const request: CopyFileRequest = {
+                        destPath: remoteBasePathDest,
+                        destStorageName: undefined,
+                        srcPath: remoteBasePathSrc,
+                        srcStorageName: undefined,
+                        versionId: undefined
+                    };
+
+                    return wordsApi.copyFile(request)
+                        .then((result) => {
+                            expect(result.response.statusCode).to.equal(200);
+
+                            const downloadRequest: DownloadFileRequest = {
+                                path: remoteBasePathDest,
+                                storageName: undefined,
+                                versionId: undefined
+                            };
+
+                            return wordsApi.downloadFile(downloadRequest)
+                                .then((result) => {
+                                    expect(result.response.statusCode).to.equals(200);
+                                    expect(result.body.length).to.greaterThan(0);
+
+                                    downloadRequest.path = remoteBasePathSrc;
+
+                                    return wordsApi.downloadFile(downloadRequest)
+                                        .then((result) => {
+                                            expect(result.response.statusCode).to.equals(200);
+                                            expect(result.body.length).to.be.greaterThan(0);
+                                        })
+                                });
+                        });
+                });
+        });
+    });
+
+    describe("Test for move file", () => {
+        it("should return response with code 200 and exists on dest only", async () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteBasePathSrc = BaseTest.remoteBaseTestDataFolder + "TestMoveFileSrc.docx";
+            var remoteBasePathDest = BaseTest.remoteBaseTestDataFolder + "TestMoveFileDest.docx";
+
+            return wordsApi.uploadFileToStorage(remoteBasePathSrc, localPath)
+                .then((result) => {
+                    expect(result.response.statusCode).to.equal(200);
+
+                    const request: MoveFileRequest = {
+                        destPath: remoteBasePathDest,
+                        destStorageName: undefined,
+                        srcPath: remoteBasePathSrc,
+                        srcStorageName: undefined,
+                        versionId: undefined
+                    };
+
+                    return wordsApi.moveFile(request)
+                        .then((result) => {
+                            expect(result.response.statusCode).to.equal(200);
+
+                            const downloadRequest: DownloadFileRequest = {
+                                path: remoteBasePathDest,
+                                storageName: undefined,
+                                versionId: undefined
+                            };
+
+                            return wordsApi.downloadFile(downloadRequest)
+                                .then((result) => {
+                                    expect(result.response.statusCode).to.equal(200);
+
+                                    downloadRequest.path = remoteBasePathSrc;
+
+                                    return wordsApi.downloadFile(downloadRequest)
+                                        .catch((error) => {
+                                            expect(error.code).to.equal(404);
+                                        })
+                                });
+                        });
                 });
         });
     });
