@@ -33,7 +33,6 @@ import * as BaseTest from "../baseTest";
 const testFolder = "DocumentActions/ConvertDocument";
 
 describe("convert document", () => {
-    const storageApi = BaseTest.initializeStorageApi();
     const wordsApi = BaseTest.initializeWordsApi();
 
     describe("from docx to other formats", () => {
@@ -44,11 +43,9 @@ describe("convert document", () => {
         const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
         before(() => {
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
             });
         });
 
@@ -93,7 +90,7 @@ describe("convert document", () => {
             function runner(value) {
                 const request = new ConvertDocumentRequest({
                     format: value,
-                    document: fs.readFileSync(localPath),
+                    document: fs.createReadStream(localPath),
                 });
 
                 // Act
@@ -191,13 +188,9 @@ describe("convert document", () => {
             const remoteFileName = "TestPostDocumentSaveAsFromPdfToDoc.pdf";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new SaveAsRequest({
                         saveOptionsData: new SaveOptionsData({
                             saveFormat: "docx",

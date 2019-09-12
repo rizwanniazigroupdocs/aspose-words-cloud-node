@@ -35,23 +35,19 @@ describe("formFields", () => {
 
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/FormFilled.docx";
             const remoteFileName = "TestGetFormFields.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetFormFieldsRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";
 
                     // Act
                     return wordsApi.getFormFields(request)
@@ -68,23 +64,19 @@ describe("formFields", () => {
     describe("getFormField function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/FormFilled.docx";
             const remoteFileName = "TestGetFormField.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetFormFieldRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";
                     request.index = 0;
 
                     // Act
@@ -103,20 +95,15 @@ describe("formFields", () => {
 
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestPutFormField.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new InsertFormFieldRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -147,20 +134,15 @@ describe("formFields", () => {
 
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/FormFilled.docx";
             const remoteFileName = "TestPostFormField.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new UpdateFormFieldRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -191,20 +173,15 @@ describe("formFields", () => {
     describe("deleteFormField function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/FormFilled.docx";
             const remoteFileName = "TestDeleteFormField.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new DeleteFormFieldRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;

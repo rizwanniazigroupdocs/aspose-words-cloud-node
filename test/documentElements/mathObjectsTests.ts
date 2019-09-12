@@ -34,23 +34,19 @@ describe("mathObjects", () => {
     describe("getOfficeMathObjects function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/MathObjects.docx";
             const remoteFileName = "TestGetMathObjects.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetOfficeMathObjectsRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = null;
 
                     // Act
                     return wordsApi.getOfficeMathObjects(request)
@@ -67,23 +63,19 @@ describe("mathObjects", () => {
     describe("getMathObject function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/MathObjects.docx";
             const remoteFileName = "TestGetMathObject.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetOfficeMathObjectRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = null;
                     request.index = 0;
 
                     // Act
@@ -101,24 +93,20 @@ describe("mathObjects", () => {
     describe("renderMathObject function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/MathObjects.docx";
             const remoteFileName = "TestGetMathObject.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new RenderMathObjectRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.format = "jpg";
+                    request.nodePath = null;
                     request.index = 0;
                     
                     // Act
@@ -135,23 +123,19 @@ describe("mathObjects", () => {
     describe("deleteOfficeMathObject function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/MathObjects.docx";
             const remoteFileName = "TestDeleteMathObject.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new DeleteOfficeMathObjectRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = null;
                     request.index = 0;
 
                     // Act

@@ -34,7 +34,6 @@ describe("compareDocument function", () => {
 
     it("should return response with code 200", () => {
 
-        const storageApi = BaseTest.initializeStorageApi();
         const wordsApi = BaseTest.initializeWordsApi();
 
         const localPath1 = BaseTest.localBaseTestDataFolder + testFolder + "/compareTestDoc1.doc";
@@ -44,33 +43,27 @@ describe("compareDocument function", () => {
 
         const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-        return new Promise((resolve) => {
-            storageApi.PutCreate(remotePath + "/" + remoteName1, null, null, localPath1, (responseMessage) => {
-                expect(responseMessage.status).to.equal("OK");
-                resolve();
-            });
-        }).then(() => {
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteName2, null, null, localPath2, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            });
-        })
-            .then(() => {
-                const request = new CompareDocumentRequest();
-                request.name = remoteName1;
-                request.folder = remotePath;
-                request.destFileName = "TestCompareDocumentOut.doc";
-                request.compareData = new CompareData({ author: "author", comparingWithDocument: remotePath + "/" + remoteName2, dateTime: new Date(2015, 10, 26) });
-
-                // Act
-                return wordsApi.compareDocument(request)
+        return wordsApi.uploadFileToStorage(remotePath + "/" + remoteName1, localPath1)
+            .then((result) => {
+                expect(result.response.statusMessage).to.equal("OK");
+                return wordsApi.uploadFileToStorage(remotePath + "/" + remoteName2, localPath2)
                     .then((result) => {
-                        // Assert
-                        expect(result.response.statusCode).to.equal(200);
+                        expect(result.response.statusMessage).to.equal("OK");
 
-                        expect(result.body.document.links.length).to.greaterThan(10);
+                        const request = new CompareDocumentRequest();
+                        request.name = remoteName1;
+                        request.folder = remotePath;
+                        request.destFileName = "TestCompareDocumentOut.doc";
+                        request.compareData = new CompareData({ author: "author", comparingWithDocument: remotePath + "/" + remoteName2, dateTime: new Date(2015, 10, 26) });
+
+                        // Act
+                        return wordsApi.compareDocument(request)
+                            .then((result) => {
+                                // Assert
+                                expect(result.response.statusCode).to.equal(200);
+
+                                expect(result.body.document.links.length).to.greaterThan(10);
+                            });
                     });
             });
     });

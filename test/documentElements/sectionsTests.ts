@@ -34,20 +34,15 @@ describe("sections", () => {
     describe("getSections function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "/test_doc.docx";
             const remoteFileName = "TestGetSections.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetSectionsRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -67,20 +62,15 @@ describe("sections", () => {
     describe("getSection function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "/test_doc.docx";
             const remoteFileName = "TestGetSection.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetSectionRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -101,20 +91,15 @@ describe("sections", () => {
     describe("getSectionPageSetup function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "/test_doc.docx";
             const remoteFileName = "TestGetSectionPageSetup.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetSectionPageSetupRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -135,20 +120,15 @@ describe("sections", () => {
     describe("updateSectionPageSetup function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "/test_doc.docx";
             const remoteFileName = "TestUpdateSectionPageSetup.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new UpdateSectionPageSetupRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;

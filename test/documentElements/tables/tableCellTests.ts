@@ -34,20 +34,15 @@ describe("tableCell", () => {
     describe("getTableCell function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/TablesGet.docx";
             const remoteFileName = "TestGetTableCell.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetTableCellRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -69,20 +64,15 @@ describe("tableCell", () => {
     describe("insertTableCell function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/TablesGet.docx";
             const remoteFileName = "TestInsertTableCell.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new InsertTableCellRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -104,20 +94,15 @@ describe("tableCell", () => {
     describe("deleteTableCell function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/TablesGet.docx";
             const remoteFileName = "TestDeleteTableCell.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new DeleteTableCellRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -137,20 +122,15 @@ describe("tableCell", () => {
     describe("getTableCellFormat function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/TablesGet.docx";
             const remoteFileName = "TestGetTableCellFormat.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetTableCellFormatRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -172,20 +152,15 @@ describe("tableCell", () => {
     describe("updateTableCellFormat function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/TablesGet.docx";
             const remoteFileName = "TestUpdateTableCellFormat.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new UpdateTableCellFormatRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;

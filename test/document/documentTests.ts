@@ -34,30 +34,26 @@ describe("getDocument function", () => {
 
   it("should return response with code 200", () => {
 
-    const storageApi = BaseTest.initializeStorageApi();
     const wordsApi = BaseTest.initializeWordsApi();
 
     const localPath = BaseTest.localCommonTestDataFolder;
     const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
     const filename = "test_doc.docx";
 
-    return new Promise((resolve) => {
-      storageApi.PutCreate(remotePath + "/" + filename, null, null, localPath + "/" + filename, (responseMessage) => {
-        expect(responseMessage.status).to.equal("OK");
-        resolve();
-      });
-    })
-      .then(() => {
+    return wordsApi.uploadFileToStorage(remotePath + "/" + filename, localPath + filename)
+      .then((result) => {
+        expect(result.response.statusMessage).to.equal("OK");
+
         const request = new GetDocumentRequest();
         request.documentName = filename;
         request.folder = remotePath;
-        
+
         // Act
         return wordsApi.getDocument(request)
           .then((result) => {
             // Assert
             expect(result.response.statusCode).to.equal(200);
-            
+
             // Check document is not signed
             expect(result.body.document.isSigned).to.equal(false);
           });
@@ -65,12 +61,12 @@ describe("getDocument function", () => {
   });
 });
 
-describe("putCreateDocument function", () => {
+describe("createDocument function", () => {
 
   it("should return response with code 200", () => {
 
     const wordsApi = BaseTest.initializeWordsApi();
-    
+
     const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
     const filename = "TestPutCreateDocument.doc";
 

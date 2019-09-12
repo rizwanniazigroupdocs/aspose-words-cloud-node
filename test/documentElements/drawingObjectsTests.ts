@@ -35,23 +35,19 @@ describe("drawingObjects", () => {
     describe("getDocumentDrawingObjects function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestGetDrawingObjects.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetDocumentDrawingObjectsRequest();
                     request.name = remoteFileName;
-                    request.folder = remotePath;                    
+                    request.folder = remotePath;
+                    request.nodePath = "sections/0";                    
 
                     // Act
                     return wordsApi.getDocumentDrawingObjects(request)
@@ -68,23 +64,19 @@ describe("drawingObjects", () => {
     describe("getDocumentDrawingObjectByIndex function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestGetDrawingObject.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetDocumentDrawingObjectByIndexRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";  
                     request.index = 0;
 
                     // Act
@@ -102,23 +94,19 @@ describe("drawingObjects", () => {
     describe("renderDrawingObject function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestRenderDrawingObject.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new RenderDrawingObjectRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";  
                     request.index = 0;
                     request.format = "png";
 
@@ -136,23 +124,19 @@ describe("drawingObjects", () => {
     describe("getDocumentDrawingObjectImageData function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestGetDocumentDrawingObjectImageData.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetDocumentDrawingObjectImageDataRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";  
                     request.index = 0;
                     
                     // Act
@@ -169,23 +153,19 @@ describe("drawingObjects", () => {
     describe("getDocumentDrawingObjectOleData function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/sample_EmbeddedOLE.docx";
             const remoteFileName = "TestGetDocumentDrawingObjectOleData.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetDocumentDrawingObjectOleDataRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";  
                     request.index = 0;
                     
                     // Act
@@ -202,7 +182,6 @@ describe("drawingObjects", () => {
     describe("putDrawingObject function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
@@ -210,18 +189,15 @@ describe("drawingObjects", () => {
             const remoteFileName = "TestPutDrawingObject.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new InsertDrawingObjectRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = null;
                     request.drawingObject = "{\"Left\": 0}";
-                    request.imageFile = fs.readFileSync(imagePath);
+                    request.imageFile = fs.createReadStream(imagePath);
                    
                     // Act
                     return wordsApi.insertDrawingObject(request)
@@ -239,7 +215,6 @@ describe("drawingObjects", () => {
 
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
@@ -247,19 +222,16 @@ describe("drawingObjects", () => {
             const remoteFileName = "TestPostDrawingObject.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new UpdateDrawingObjectRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";  
                     request.index = 0;
                     request.drawingObject = "{\"Left\": 0}";
-                    request.imageFile = fs.readFileSync(imagePath);
+                    request.imageFile = fs.createReadStream(imagePath);
                     
                     // Act
                     return wordsApi.updateDrawingObject(request)
@@ -277,23 +249,19 @@ describe("drawingObjects", () => {
 
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestDeleteDrawingObject.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new DeleteDrawingObjectRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";  
                     request.index = 0;
 
                     // Act

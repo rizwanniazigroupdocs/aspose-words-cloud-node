@@ -22,6 +22,9 @@
 * SOFTWARE.
 */
 
+
+import { Readable } from "stream";
+
 /**
  * Api error.
  */
@@ -11883,7 +11886,7 @@ export class ConvertDocumentRequest {
     /**
      * Converting document
      */
-    public document: Buffer;
+    public document: Readable;
 
     /**
      * Format to convert.
@@ -13731,12 +13734,12 @@ export class ExecuteMailMergeOnlineRequest {
     /**
      * File with template
      */
-    public template: Buffer;
+    public template: Readable;
 
     /**
      * File with mailmerge data
      */
-    public data: Buffer;
+    public data: Readable;
 
     /**
      * With regions flag.
@@ -14403,7 +14406,7 @@ export class GetDocumentFieldNamesOnlineRequest {
     /**
      * File with template
      */
-    public template: Buffer;
+    public template: Readable;
 
     /**
      * Use non merge fields or not.
@@ -16481,7 +16484,7 @@ export class InsertDrawingObjectRequest {
     /**
      * File with image
      */
-    public imageFile: Buffer;
+    public imageFile: Readable;
 
     /**
      * Path to the node, which contains collection of drawing objects.
@@ -16545,7 +16548,7 @@ export class InsertDrawingObjectWithoutNodePathRequest {
     /**
      * File with image
      */
-    public imageFile: Buffer;
+    public imageFile: Readable;
 
     /**
      * Original document folder.
@@ -17430,7 +17433,7 @@ export class InsertWatermarkImageRequest {
     /**
      * File with image
      */
-    public imageFile: Buffer;
+    public imageFile: Readable;
 
     /**
      * Original document folder.
@@ -18897,7 +18900,7 @@ export class UpdateDrawingObjectRequest {
     /**
      * File with image
      */
-    public imageFile: Buffer;
+    public imageFile: Readable;
 
     /**
      * Path to the node, which contains collection of drawing objects.
@@ -18966,7 +18969,7 @@ export class UpdateDrawingObjectWithoutNodePathRequest {
     /**
      * File with image
      */
-    public imageFile: Buffer;
+    public imageFile: Readable;
 
     /**
      * Object index.
@@ -19871,7 +19874,7 @@ export class UploadFileRequest {
     /**
      * File to upload
      */
-    public file: Buffer;
+    public file: Readable;
 
     /**
      * Path where to upload including filename and extension e.g. /file.ext or /Folder 1/file.ext              If the content is multipart and path does not contains the file name it tries to get them from filename parameter              from Content-Disposition header.

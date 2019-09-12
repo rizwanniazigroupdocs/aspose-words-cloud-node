@@ -34,23 +34,19 @@ describe("paragraphs", () => {
     describe("getParagraphs function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestGetParagraphs.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetParagraphsRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";
 
                     // Act
                     return wordsApi.getParagraphs(request)
@@ -67,23 +63,19 @@ describe("paragraphs", () => {
     describe("getParagraph function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestGetParagraph.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetParagraphRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = "sections/0";
                     request.index = 0;
 
                     // Act
@@ -101,20 +93,15 @@ describe("paragraphs", () => {
     describe("putParagraph function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestPutParagraph.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new InsertParagraphRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -136,23 +123,19 @@ describe("paragraphs", () => {
     describe("deleteParagraph function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestDeleteParagraph.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new DeleteParagraphRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = null;
                     request.index = 0;
 
                     // Act
@@ -168,24 +151,20 @@ describe("paragraphs", () => {
     describe("renderParagraph function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestRenderParagraph.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new RenderParagraphRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.index = 0;
+                    request.nodePath = null;
                     request.format = "png";
 
                     // Act
@@ -202,23 +181,19 @@ describe("paragraphs", () => {
     describe("getParagraphFormat function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "/test_doc.docx";
             const remoteFileName = "TestGetParagraphFormat.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetParagraphFormatRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.nodePath = null;
                     request.index = 0;
 
                     // Act
@@ -236,25 +211,20 @@ describe("paragraphs", () => {
     describe("updateParagraphFormat function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "/test_doc.docx";
             const remoteFileName = "TestUpdateParagraphFormat.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new UpdateParagraphFormatRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
                     request.index = 0;
-                    request.nodePath = "";
+                    request.nodePath = null;
                     request.dto = new ParagraphFormat(
                     {
                         alignment: ParagraphFormat.AlignmentEnum.Right,

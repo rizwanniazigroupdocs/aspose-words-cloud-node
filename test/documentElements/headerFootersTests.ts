@@ -34,23 +34,19 @@ describe("headersFooters", () => {
     describe("getHeaderFooters function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/HeadersFooters.doc";
             const remoteFileName = "TestGetHeaderFooters.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetHeaderFootersRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.sectionPath = null;
 
                     // Act
                     return wordsApi.getHeaderFooters(request)
@@ -67,20 +63,15 @@ describe("headersFooters", () => {
     describe("getHeaderFooter function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/HeadersFooters.doc";
             const remoteFileName = "TestGetHeadersFooters.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetHeaderFooterRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -101,20 +92,15 @@ describe("headersFooters", () => {
     describe("getHeaderFooter function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/HeadersFooters.doc";
             const remoteFileName = "TestGetHeadersFooters.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetHeaderFooterOfSectionRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -136,23 +122,19 @@ describe("headersFooters", () => {
     describe("putHeaderFooter function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/HeadersFooters.doc";
             const remoteFileName = "TestPutHeadersFooters.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new InsertHeaderFooterRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.sectionPath = null;
                     request.headerFooterType = "FooterEven";
 
                     // Act
@@ -170,23 +152,19 @@ describe("headersFooters", () => {
     describe("deleteHeaderFooter function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/HeadersFooters.doc";
             const remoteFileName = "TestDeleteHeadersFooters.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new DeleteHeaderFooterRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.sectionPath = null;
                     request.index = 0;
 
                     // Act
@@ -202,23 +180,19 @@ describe("headersFooters", () => {
     describe("deleteHeaderFooters function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/HeadersFooters.doc";
             const remoteFileName = "TestDeleteHeadersFooters.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new DeleteHeadersFootersRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
+                    request.sectionPath = null;
 
                     // Act
                     return wordsApi.deleteHeadersFooters(request)

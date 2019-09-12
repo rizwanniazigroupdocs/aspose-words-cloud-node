@@ -49,19 +49,18 @@ describe("Text classification", () => {
     });
 
     describe("classify document", () => {
+
         const wordsApi = BaseTest.initializeWordsApi();
-        const storageApi = BaseTest.initializeStorageApi();
+
         const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
         const remoteFileName = "SourceDocument.docx";
         const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
         before(() => {
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+                .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                 });
-            });
         });
 
         it("should return response with code 200", () => {
@@ -70,26 +69,23 @@ describe("Text classification", () => {
             request.folder = remotePath;
 
             return wordsApi.classifyDocument(request)
-              .then((result) => {
-                  // Assert
-                  expect(result.response.statusCode).to.equal(200);
-              });
+                .then((result) => {
+                    // Assert
+                    expect(result.response.statusCode).to.equal(200);
+                });
         });
     });
 
     describe("classify with taxonomy \"documents\"", () => {
         const wordsApi = BaseTest.initializeWordsApi();
-        const storageApi = BaseTest.initializeStorageApi();
         const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
         const remoteFileName = "SourceDocument.docx";
         const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
         const taxonomy = "documents";
         before(() => {
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
             });
         });
 
@@ -99,10 +95,10 @@ describe("Text classification", () => {
             request.folder = remotePath;
             request.taxonomy = taxonomy;
             return wordsApi.classifyDocument(request)
-              .then((result) => {
-                  // Assert
-                  expect(result.response.statusCode).to.equal(200);
-              });
+                .then((result) => {
+                    // Assert
+                    expect(result.response.statusCode).to.equal(200);
+                });
         });
     });
 });

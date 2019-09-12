@@ -39,8 +39,8 @@ describe("executeMailMerge", () => {
             const dataLocalPath = BaseTest.localBaseTestDataFolder + testFolder + "/SampleMailMergeTemplateData.txt";
 
             const request = new ExecuteMailMergeOnlineRequest({
-                data: fs.readFileSync(dataLocalPath),
-                template: fs.readFileSync(templateLocalPath),
+                data: fs.createReadStream(dataLocalPath),
+                template: fs.createReadStream(templateLocalPath),
             });
             
             // Act
@@ -58,7 +58,6 @@ describe("executeMailMerge", () => {
         describe("simple mailMerge", () => {
             it("should return response with code 200", () => {
 
-                const storageApi = BaseTest.initializeStorageApi();
                 const wordsApi = BaseTest.initializeWordsApi();
 
                 const templateLocalPath = BaseTest.localBaseTestDataFolder + testFolder + "/SampleMailMergeTemplate.docx";
@@ -66,13 +65,9 @@ describe("executeMailMerge", () => {
                 const remoteFileName = "TestSimpleMailMergeTemplate.docx";
                 const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-                return new Promise((resolve) => {
-                    storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, templateLocalPath, (responseMessage) => {
-                        expect(responseMessage.status).to.equal("OK");
-                        resolve();
-                    });
-                })
-                    .then(() => {
+                return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, templateLocalPath)
+                .then((result) => {
+                        expect(result.response.statusMessage).to.equal("OK");
                         const request = new ExecuteMailMergeRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
@@ -94,7 +89,6 @@ describe("executeMailMerge", () => {
         describe("mailMerge with images", () => {
             it("should return response with code 200", () => {
 
-                const storageApi = BaseTest.initializeStorageApi();
                 const wordsApi = BaseTest.initializeWordsApi();
 
                 const templateLocalPath = BaseTest.localBaseTestDataFolder + testFolder + "/TestMailMergeWithImages.doc";
@@ -102,13 +96,9 @@ describe("executeMailMerge", () => {
                 const remoteFileName = "TestMailMergeWithImagesTemplate.doc";
                 const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-                return new Promise((resolve) => {
-                    storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, templateLocalPath, (responseMessage) => {
-                        expect(responseMessage.status).to.equal("OK");
-                        resolve();
-                    });
-                })
-                    .then(() => {
+                return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, templateLocalPath)
+                .then((result) => {
+                        expect(result.response.statusMessage).to.equal("OK");
                         const request = new ExecuteMailMergeRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;

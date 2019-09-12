@@ -34,20 +34,15 @@ describe("postAppendDocument function", () => {
 
     it("should return response with code 200", () => {
 
-        const storageApi = BaseTest.initializeStorageApi();
         const wordsApi = BaseTest.initializeWordsApi();
 
         const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
         const remoteFileName = "TestPostAppendDocument.docx";
         const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-        return new Promise((resolve) => {
-            storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                expect(responseMessage.status).to.equal("OK");
-                resolve();
-            });
-        })
-            .then(() => {
+        return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+        .then((result) => {
+                expect(result.response.statusMessage).to.equal("OK");
                 const docEntry = new DocumentEntry();
                 docEntry.href = remotePath + "/" + remoteFileName;
                 docEntry.importFormatMode = "KeepSourceFormatting";

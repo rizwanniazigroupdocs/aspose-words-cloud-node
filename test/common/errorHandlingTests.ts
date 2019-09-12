@@ -30,7 +30,7 @@ import { initializeWordsApi } from "../baseTest";
 
 describe("errorHandling tests", () => {
 
-    it("If file does not exist, 400 response should be returned with message 'Error while loading file '", () => {
+    it("If file does not exist, 404 response should be returned with message 'Error while loading file '", () => {
 
         const wordsApi = initializeWordsApi();        
         const request = new GetDocumentRequest();
@@ -38,8 +38,8 @@ describe("errorHandling tests", () => {
                         
         return wordsApi.getDocument(request)            
             .catch((error) => {               
-                expect(error.code).to.equal(400);
-                expect(error.message).to.equal("Error while loading file \'noFileWithThisName.docx\' from storage: AmazonS3 exception: Error \'The specified key does not exist.\', Bucket \'afc-testdata\', FilePath \'6/Words/noFileWithThisName.docx\'");               
+                expect(error.code).to.equal(404);
+                expect(error.message.startsWith("Error while loading file 'noFileWithThisName.docx' from storage: AmazonS3 Storage exception:")).to.be.true;               
             });
     });    
 });

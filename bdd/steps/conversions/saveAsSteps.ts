@@ -54,6 +54,7 @@ Then(/^symbols are encoded properly$/, function() {
     const request = new GetRunsRequest({
         folder: BaseTest.remoteBaseFolder + "DocumentActions/ConvertDocument/out/saveas",
         name: "TableDocumentDoc.doc",
+        paragraphPath: null
     });
 
     wordsApi.getRuns(request).then((result) => {

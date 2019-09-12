@@ -34,7 +34,6 @@ const testFolder = "DocumentElements/Watermarks";
 describe("watermarks", () => {
     describe("postInsertDocumentWatermarkImage function", () => {
 
-        const storageApi = BaseTest.initializeStorageApi();
         const wordsApi = BaseTest.initializeWordsApi();
 
         const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
@@ -46,17 +45,13 @@ describe("watermarks", () => {
                 const remoteFileName = "TestPostInsertDocumentWatermarkImage.docx";
                 const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-                return new Promise((resolve) => {
-                    storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                        expect(responseMessage.status).to.equal("OK");
-                        resolve();
-                    });
-                })
-                    .then(() => {
+                return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+                    .then((result) => {
+                        expect(result.response.statusMessage).to.equal("OK");
                         const request = new InsertWatermarkImageRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
-                        request.imageFile = fs.readFileSync(localImagePath);
+                        request.imageFile = fs.createReadStream(localImagePath);
 
                         // Act
                         return wordsApi.insertWatermarkImage(request)
@@ -77,27 +72,50 @@ describe("watermarks", () => {
                 const remoteImageName = "TestPostInsertDocumentWatermarkImage.png";
                 const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-                return new Promise((resolve) => {
-                    storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                        expect(responseMessage.status).to.equal("OK");
-                        resolve();
+                return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+                    .then((result) => {
+                        expect(result.response.statusMessage).to.equal("OK");
+                        return wordsApi.uploadFileToStorage(remotePath + "/" + remoteImageName, localImagePath)
+                            .then((result) => {
+                                expect(result.response.statusMessage).to.equal("OK");
+
+                                const request = new InsertWatermarkImageRequest();
+                                request.name = remoteFileName;
+                                request.folder = remotePath;
+                                request.image = remotePath + "/" + remoteImageName;
+
+                                // Act
+                                return wordsApi.insertWatermarkImage(request)
+                                    .then((result) => {
+                                        // Assert
+                                        expect(result.response.statusCode).to.equal(200);
+
+                                        expect(result.body.document).to.exist.and.not.equal(null);
+                                    });
+                            });
                     });
-                }).then(() => {
-                    return new Promise((resolve) => {
-                        storageApi.PutCreate(remotePath + "/" + remoteImageName, null, null, localImagePath, (responseMessage) => {
-                            expect(responseMessage.status).to.equal("OK");
-                            resolve();
-                        });
-                    });
-                })
-                .then(() => {
-                        const request = new InsertWatermarkImageRequest();
+            });
+        });
+
+        describe("postInsertDocumentWatermarkText function", () => {
+            it("should return response with code 200", () => {
+
+                const wordsApi = BaseTest.initializeWordsApi();
+
+                const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+                const remoteFileName = "TestPostInsertDocumentWatermarkText.docx";
+                const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+                return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+                    .then((result) => {
+                        expect(result.response.statusMessage).to.equal("OK");
+                        const request = new InsertWatermarkTextRequest();
                         request.name = remoteFileName;
                         request.folder = remotePath;
-                        request.image = remotePath + "/" + remoteImageName;
+                        request.watermarkText = new WatermarkText({ text: "This is the text", rotationAngle: 90.0 });
 
                         // Act
-                        return wordsApi.insertWatermarkImage(request)
+                        return wordsApi.insertWatermarkText(request)
                             .then((result) => {
                                 // Assert
                                 expect(result.response.statusCode).to.equal(200);
@@ -107,72 +125,33 @@ describe("watermarks", () => {
                     });
             });
         });
-    });
 
-    describe("postInsertDocumentWatermarkText function", () => {
-        it("should return response with code 200", () => {
+        describe("deleteDocumentWatermark function", () => {
+            it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
-            const wordsApi = BaseTest.initializeWordsApi();
+                const wordsApi = BaseTest.initializeWordsApi();
 
-            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
-            const remoteFileName = "TestPostInsertDocumentWatermarkText.docx";
-            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+                const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+                const remoteFileName = "TestDeleteDocumentWatermark.docx";
+                const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
-                    const request = new InsertWatermarkTextRequest();
-                    request.name = remoteFileName;
-                    request.folder = remotePath;
-                    request.watermarkText = new WatermarkText ({ text: "This is the text", rotationAngle: 90.0 });
+                return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+                    .then((result) => {
+                        expect(result.response.statusMessage).to.equal("OK");
+                        const request = new DeleteWatermarkRequest();
+                        request.name = remoteFileName;
+                        request.folder = remotePath;
 
-                    // Act
-                    return wordsApi.insertWatermarkText(request)
-                        .then((result) => {
-                            // Assert
-                            expect(result.response.statusCode).to.equal(200);
+                        // Act
+                        return wordsApi.deleteWatermark(request)
+                            .then((result) => {
+                                // Assert
+                                expect(result.response.statusCode).to.equal(200);
 
-                            expect(result.body.document).to.exist.and.not.equal(null);
-                        });
-                });
-        });
-    });
-
-    describe("deleteDocumentWatermark function", () => {
-        it("should return response with code 200", () => {
-
-            const storageApi = BaseTest.initializeStorageApi();
-            const wordsApi = BaseTest.initializeWordsApi();
-
-            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
-            const remoteFileName = "TestDeleteDocumentWatermark.docx";
-            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
-
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
-                    const request = new DeleteWatermarkRequest();
-                    request.name = remoteFileName;
-                    request.folder = remotePath;                    
-
-                    // Act
-                    return wordsApi.deleteWatermark(request)
-                        .then((result) => {
-                            // Assert
-                            expect(result.response.statusCode).to.equal(200);
-
-                            expect(result.body.document).to.exist.and.not.equal(null);
-                        });
-                });
+                                expect(result.body.document).to.exist.and.not.equal(null);
+                            });
+                    });
+            });
         });
     });
 });

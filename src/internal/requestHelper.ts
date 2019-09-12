@@ -112,7 +112,7 @@ async function invokeApiMethodInternal(requestOptions: request.Options, confgura
                         }
 
                         const result = ObjectSerializer.deserialize(bodyContent, "WordsApiErrorResponse");
-                        reject({ message: result.message, code: response.statusCode });
+                        reject({ message: result.error.message, code: response.statusCode });
                     } catch (error) {
                         reject({ message: "Error while parse server error: " + error });
                     }

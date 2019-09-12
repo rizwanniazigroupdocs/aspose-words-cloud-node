@@ -31,23 +31,18 @@ import * as BaseTest from "../../baseTest";
 const testFolder = "DocumentActions/MailMerge";
 
 describe("mailMerge fields", () => {
-    describe("getDocumentStatistics function", () => {
+    describe("getDocumentFieldNames function", () => {
         it("should return response with code 200", () => {
 
-            const storageApi = BaseTest.initializeStorageApi();
             const wordsApi = BaseTest.initializeWordsApi();
 
             const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
             const remoteFileName = "TestGetDocumentFieldNames.docx";
             const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
 
-            return new Promise((resolve) => {
-                storageApi.PutCreate(remotePath + "/" + remoteFileName, null, null, localPath, (responseMessage) => {
-                    expect(responseMessage.status).to.equal("OK");
-                    resolve();
-                });
-            })
-                .then(() => {
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
                     const request = new GetDocumentFieldNamesRequest();
                     request.name = remoteFileName;
                     request.folder = remotePath;
@@ -72,7 +67,7 @@ describe("mailMerge fields", () => {
             const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/SampleExecuteTemplate.docx";
 
             const request = new GetDocumentFieldNamesOnlineRequest({
-                template: fs.readFileSync(localPath),
+                template: fs.createReadStream(localPath),
                 useNonMergeFields: true,                                
             });
 
@@ -81,8 +76,6 @@ describe("mailMerge fields", () => {
                 .then((result) => {
                     // Assert                
                     expect(result.response.statusCode).to.equal(200);
-                    expect(result.response.statusCode).to.equal(200);
-
                     expect(result.body.fieldNames.names.length).to.equal(15);
                 });
 

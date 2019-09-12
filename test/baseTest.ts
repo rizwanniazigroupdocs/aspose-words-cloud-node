@@ -22,31 +22,44 @@
 * SOFTWARE.
 */
 
+import {IncomingMessage} from "http";
 import { WordsApi } from "../src/api";
-
-let storageApi;
+import { UploadFileRequest, FilesUploadResult } from "../src/model/model";
+import { createReadStream } from "fs";
 
 /**
  * Initialize WordsApi
  */
 export function initializeWordsApi(debugMode?: boolean) {
     const config = require("../testConfig.json");
-    const wordsApi = new WordsApi(config.AppSid, config.AppKey, config.BaseUrl, debugMode);
+    const wordsApi = new TestWordsApi(config.AppSid, config.AppKey, config.BaseUrl, debugMode);
     return wordsApi;
 }
 
-/**
- * Initialize StorageApi
- */
-export function initializeStorageApi() {
-    if (!storageApi) {
-        const config = require("../testConfig.json");
-        const StorageApi = require("asposestoragecloud");
-
-        storageApi = new StorageApi({ appSid: config.AppSid, apiKey: config.AppKey, baseURI: config.BaseUrl + "/v1.1" });
+export class TestWordsApi extends WordsApi {
+    /**
+     * @param appSID App SID.
+     * @param appKey App key.
+     * @param baseUrl Base api Url.
+     * @param debugMode A value indicating whether debug mode. In debug mode all requests and responses are logged to console.
+     */
+    constructor(appSID: string, appKey: string, baseUrl?: string, debugMode?: boolean) {
+        super(appSID, appKey, baseUrl, debugMode);
     }
 
-    return storageApi;
+    /**
+     * Uploads file to storage.
+     * @param remotePath Path in storage.
+     * @param localPath Path to file
+     */
+    public async uploadFileToStorage(remotePath: string, localPath: string): Promise<{ response: IncomingMessage, body: FilesUploadResult }> {
+
+        const request = new UploadFileRequest();
+        request.path = remotePath;
+        request.file = createReadStream(localPath);
+
+        return super.uploadFile(request);
+    }
 }
 
 export const remoteBaseFolder = "Temp/SdkTests/node/";
@@ -89,3 +102,4 @@ export const saveFormatTestCases = [
     "htmlfixed",
     "pcl",
 ];
+
