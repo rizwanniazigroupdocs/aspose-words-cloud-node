@@ -26,6 +26,7 @@ import { expect } from "chai";
 import "mocha";
 
 import { DeleteOfficeMathObjectRequest, GetOfficeMathObjectRequest, GetOfficeMathObjectsRequest, RenderMathObjectRequest } from "../../src/model/model";
+import { DeleteOfficeMathObjectWithoutNodePathRequest, GetOfficeMathObjectWithoutNodePathRequest, GetOfficeMathObjectsWithoutNodePathRequest, RenderMathObjectWithoutNodePathRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/MathObjects";
@@ -147,4 +148,117 @@ describe("mathObjects", () => {
                 });
         });
     });
+
+    describe("getOfficeMathObjectsWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/MathObjects.docx";
+            const remoteFileName = "TestGetMathObjectsWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetOfficeMathObjectsWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+
+                    // Act
+                    return wordsApi.getOfficeMathObjectsWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.officeMathObjects).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("getMathObjectWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/MathObjects.docx";
+            const remoteFileName = "TestGetMathObjectWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetOfficeMathObjectWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+
+                    // Act
+                    return wordsApi.getOfficeMathObjectWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.officeMathObject).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });    
+
+    describe("renderMathObjectWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/MathObjects.docx";
+            const remoteFileName = "TestGetMathObjectWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new RenderMathObjectWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.format = "jpg";
+                    request.index = 0;
+                    
+                    // Act
+                    return wordsApi.renderMathObjectWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+                            expect(result.body.byteLength).to.greaterThan(0);
+                        });
+                });
+        });
+    });
+
+    describe("deleteOfficeMathObjectWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/MathObjects.docx";
+            const remoteFileName = "TestDeleteMathObjectWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new DeleteOfficeMathObjectWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+
+                    // Act
+                    return wordsApi.deleteOfficeMathObjectWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+                        });
+                });
+        });
+    });    
 });

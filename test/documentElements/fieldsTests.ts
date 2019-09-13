@@ -26,6 +26,7 @@ import { expect } from "chai";
 import "mocha";
 
 import { DeleteFieldRequest, DeleteFieldsRequest, Field, GetFieldRequest, GetFieldsRequest, PageNumber, InsertFieldRequest, InsertPageNumbersRequest, UpdateFieldsRequest, UpdateFieldRequest } from "../../src/model/model";
+import { DeleteFieldWithoutNodePathRequest, DeleteFieldsWithoutNodePathRequest, GetFieldWithoutNodePathRequest, GetFieldsWithoutNodePathRequest, InsertFieldWithoutNodePathRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/Fields";
@@ -90,7 +91,7 @@ describe("fields", () => {
         });
     });
 
-    describe("putField function", () => {
+    describe("insertField function", () => {
         it("should return response with code 200", () => {
 
             const wordsApi = BaseTest.initializeWordsApi();
@@ -120,7 +121,7 @@ describe("fields", () => {
         });
     });
 
-    describe("postField function", () => {
+    describe("updateField function", () => {
         it("should return response with code 200", () => {
 
             const wordsApi = BaseTest.initializeWordsApi();
@@ -206,7 +207,7 @@ describe("fields", () => {
         });
     });
 
-    describe("postInsertPageNumbers function", () => {
+    describe("insertPageNumbers function", () => {
         it("should return response with code 200", () => {
 
             const wordsApi = BaseTest.initializeWordsApi();
@@ -235,7 +236,7 @@ describe("fields", () => {
         });
     });
 
-    describe("postUpdateDocumentFields function", () => {
+    describe("updateFields function", () => {
         it("should return response with code 200", () => {
 
             const wordsApi = BaseTest.initializeWordsApi();
@@ -262,4 +263,144 @@ describe("fields", () => {
                 });
         });
     });
+
+    describe("getFieldsWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/GetField.docx";
+            const remoteFileName = "TestGetFieldsWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetFieldsWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+
+                    // Act
+                    return wordsApi.getFieldsWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.fields).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("getFieldWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/GetField.docx";
+            const remoteFileName = "TestGetFieldWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetFieldWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+
+                    // Act
+                    return wordsApi.getFieldWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.field).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("insertFieldWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteFileName = "TestPutFieldWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new InsertFieldWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.field = new Field({ fieldCode: "{ NUMPAGES }", nodeId: "0.0.3" });
+
+                    // Act
+                    return wordsApi.insertFieldWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.field).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("deleteFieldWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/GetField.docx";
+            const remoteFileName = "TestDeleteFieldWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new DeleteFieldWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+
+                    // Act
+                    return wordsApi.deleteFieldWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+                        });
+                });
+        });
+    });
+
+    describe("deleteFieldsWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/GetField.docx";
+            const remoteFileName = "TestDeleteFieldWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new DeleteFieldsWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;                
+
+                    // Act
+                    return wordsApi.deleteFieldsWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+                        });
+                });
+        });
+    });
+
 });

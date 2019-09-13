@@ -26,6 +26,7 @@ import { expect } from "chai";
 import "mocha";
 
 import { DeleteFormFieldRequest, FormFieldTextInput, GetFormFieldRequest, GetFormFieldsRequest, InsertFormFieldRequest, UpdateFormFieldRequest } from "../../src/model/model";
+import { DeleteFormFieldWithoutNodePathRequest, GetFormFieldWithoutNodePathRequest, GetFormFieldsWithoutNodePathRequest, InsertFormFieldWithoutNodePathRequest, UpdateFormFieldWithoutNodePathRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/FormFields";
@@ -91,7 +92,7 @@ describe("formFields", () => {
         });
     });    
 
-    describe("putFormField function", () => {
+    describe("insertFormField function", () => {
 
         it("should return response with code 200", () => {
 
@@ -130,7 +131,7 @@ describe("formFields", () => {
         });
     });
 
-    describe("postFormField function", () => {
+    describe("updateFormField function", () => {
 
         it("should return response with code 200", () => {
 
@@ -190,6 +191,168 @@ describe("formFields", () => {
 
                     // Act
                     return wordsApi.deleteFormField(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+                        });
+                });
+        });
+    });
+
+    describe("getFormFieldsWithoutNodePath function", () => {
+
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/FormFilled.docx";
+            const remoteFileName = "TestGetFormFieldsWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetFormFieldsWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+
+                    // Act
+                    return wordsApi.getFormFieldsWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.formFields).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("getFormFieldWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/FormFilled.docx";
+            const remoteFileName = "TestGetFormFieldWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetFormFieldWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+
+                    // Act
+                    return wordsApi.getFormFieldWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.formField).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });    
+
+    describe("insertFormFieldWithoutNodePath function", () => {
+
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteFileName = "TestPutFormFieldWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new InsertFormFieldWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.formField = new FormFieldTextInput
+                    ({
+                        name: "FullName",
+                        enabled: true,
+                        calculateOnExit: true,                        
+                        textInputType: FormFieldTextInput.TextInputTypeEnum.Regular,
+                        textInputDefault: "123",
+                        textInputFormat: "UPPERCASE",
+                    });
+                    
+                    // Act
+                    return wordsApi.insertFormFieldWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.formField).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("updateFormFieldWithoutNodePath function", () => {
+
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/FormFilled.docx";
+            const remoteFileName = "TestPostFormFieldWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new UpdateFormFieldWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+                    request.formField = new FormFieldTextInput
+                    ({
+                        name: "FullName",
+                        enabled: true,
+                        calculateOnExit: true,                        
+                        textInputType: FormFieldTextInput.TextInputTypeEnum.Regular,
+                        textInputDefault: "123",
+                        textInputFormat: "UPPERCASE",
+                    });
+
+                    // Act
+                    return wordsApi.updateFormFieldWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.formField).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("deleteFormFieldWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/FormFilled.docx";
+            const remoteFileName = "TestDeleteFormFieldWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new DeleteFormFieldWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+
+                    // Act
+                    return wordsApi.deleteFormFieldWithoutNodePath(request)
                         .then((result) => {
                             // Assert
                             expect(result.response.statusCode).to.equal(200);

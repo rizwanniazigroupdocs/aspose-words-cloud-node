@@ -27,6 +27,7 @@ import * as fs from "fs";
 import "mocha";
 
 import { DeleteDrawingObjectRequest, GetDocumentDrawingObjectByIndexRequest, GetDocumentDrawingObjectImageDataRequest, GetDocumentDrawingObjectOleDataRequest, GetDocumentDrawingObjectsRequest, InsertDrawingObjectRequest, UpdateDrawingObjectRequest, RenderDrawingObjectRequest } from "../../src/model/model";
+import { DeleteDrawingObjectWithoutNodePathRequest, GetDocumentDrawingObjectByIndexWithoutNodePathRequest, GetDocumentDrawingObjectImageDataWithoutNodePathRequest, GetDocumentDrawingObjectOleDataWithoutNodePathRequest, GetDocumentDrawingObjectsWithoutNodePathRequest, InsertDrawingObjectWithoutNodePathRequest, UpdateDrawingObjectWithoutNodePathRequest, RenderDrawingObjectWithoutNodePathRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "DocumentElements/DrawingObjects";
@@ -179,7 +180,7 @@ describe("drawingObjects", () => {
         });
     });
 
-    describe("putDrawingObject function", () => {
+    describe("insertDrawingObject function", () => {
         it("should return response with code 200", () => {
 
             const wordsApi = BaseTest.initializeWordsApi();
@@ -211,7 +212,7 @@ describe("drawingObjects", () => {
         });
     });
 
-    describe("postDrawingObject function", () => {
+    describe("updateDrawingObject function", () => {
 
         it("should return response with code 200", () => {
 
@@ -266,6 +267,240 @@ describe("drawingObjects", () => {
 
                     // Act
                     return wordsApi.deleteDrawingObject(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+                        });
+                });
+        });
+    });
+
+    describe("getDocumentDrawingObjectsWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteFileName = "TestGetDrawingObjectsWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetDocumentDrawingObjectsWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;                  
+
+                    // Act
+                    return wordsApi.getDocumentDrawingObjectsWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.drawingObjects).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("getDocumentDrawingObjectByIndexWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteFileName = "TestGetDrawingObjectWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetDocumentDrawingObjectByIndexWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath; 
+                    request.index = 0;
+
+                    // Act
+                    return wordsApi.getDocumentDrawingObjectByIndexWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.drawingObject).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+    
+    describe("renderDrawingObjectWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteFileName = "TestRenderDrawingObjectWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new RenderDrawingObjectWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+                    request.format = "png";
+
+                    // Act
+                    return wordsApi.renderDrawingObjectWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+                            expect(result.body.byteLength).to.greaterThan(0);
+                        });
+                });
+        });
+    });
+
+    describe("getDocumentDrawingObjectImageDataWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteFileName = "TestGetDocumentDrawingObjectImageDataWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetDocumentDrawingObjectImageDataWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath; 
+                    request.index = 0;
+                    
+                    // Act
+                    return wordsApi.getDocumentDrawingObjectImageDataWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+                            expect(result.body.byteLength).to.greaterThan(0);
+                        });
+                });
+        });
+    });
+
+    describe("getDocumentDrawingObjectOleDataWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/sample_EmbeddedOLE.docx";
+            const remoteFileName = "TestGetDocumentDrawingObjectOleDataWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetDocumentDrawingObjectOleDataWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+                    
+                    // Act
+                    return wordsApi.getDocumentDrawingObjectOleDataWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+                            expect(result.body.byteLength).to.greaterThan(0);
+                        });
+                });
+        });
+    });
+
+    describe("putDrawingObjectWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const imagePath = BaseTest.localCommonTestDataFolder + "aspose-cloud.png";
+            const remoteFileName = "TestPutDrawingObjectWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new InsertDrawingObjectWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.drawingObject = "{\"Left\": 0}";
+                    request.imageFile = fs.createReadStream(imagePath);
+                   
+                    // Act
+                    return wordsApi.insertDrawingObjectWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.drawingObject).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("postDrawingObject function", () => {
+
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const imagePath = BaseTest.localCommonTestDataFolder + "aspose-cloud.png";
+            const remoteFileName = "TestPostDrawingObjectWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new UpdateDrawingObjectWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+                    request.drawingObject = "{\"Left\": 0}";
+                    request.imageFile = fs.createReadStream(imagePath);
+                    
+                    // Act
+                    return wordsApi.updateDrawingObjectWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.drawingObject).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("deleteDrawingObjectWithoutNodePath function", () => {
+
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteFileName = "TestDeleteDrawingObjectWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new DeleteDrawingObjectWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+
+                    // Act
+                    return wordsApi.deleteDrawingObjectWithoutNodePath(request)
                         .then((result) => {
                             // Assert
                             expect(result.response.statusCode).to.equal(200);

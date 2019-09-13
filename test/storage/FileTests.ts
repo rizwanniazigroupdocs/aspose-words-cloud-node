@@ -26,7 +26,7 @@ import { expect } from "chai";
 import "mocha";
 import fs = require("fs");
 
-import { UploadFileRequest, CopyFileRequest, MoveFileRequest, DownloadFileRequest } from "../../src/model/model";
+import { UploadFileRequest, CopyFileRequest, MoveFileRequest, DownloadFileRequest, DeleteFileRequest } from "../../src/model/model";
 import * as BaseTest from "../baseTest";
 
 const testFolder = "document";
@@ -150,4 +150,37 @@ describe("Storage file operations", () => {
                 });
         });
     });
+
+    describe("Test for deleting file", () => {
+        it("should return response with code 200 and name of uploaded file", async () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localCommonTestDataFolder + "test_multi_pages.docx";
+            const remoteFileName = "TestDeleteFile.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            const request: UploadFileRequest = {
+                file: fs.createReadStream(localPath),
+                path: remotePath + "/" + remoteFileName,
+                storageName: undefined
+            };
+
+            return wordsApi.uploadFile(request)
+                .then((result) => {
+                    expect(result.response.statusCode).to.equal(200);
+
+                    const deleteRequest: DeleteFileRequest = {
+                        path: remotePath + "/" + remoteFileName,
+                        storageName: undefined,
+                        versionId: undefined
+                    };
+
+                    return wordsApi.deleteFile(deleteRequest)
+                        .then((result) => {
+                            expect(result.response.statusCode).to.equals(200);
+                        });
+                });
+        });
+    });    
 });

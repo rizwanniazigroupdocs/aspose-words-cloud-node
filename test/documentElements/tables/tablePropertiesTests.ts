@@ -26,6 +26,7 @@ import { expect } from "chai";
 import "mocha";
 
 import { GetTablePropertiesRequest, TableProperties, UpdateTablePropertiesRequest } from "../../../src/model/model";
+import { GetTablePropertiesWithoutNodePathRequest, UpdateTablePropertiesWithoutNodePathRequest } from "../../../src/model/model";
 import * as BaseTest from "../../baseTest";
 
 const testFolder = "DocumentElements/Tables";
@@ -94,6 +95,77 @@ describe("tableProperties", () => {
 
                     // Act
                     return wordsApi.updateTableProperties(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.properties).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("getTablePropertiesWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/TablesGet.docx";
+            const remoteFileName = "TestGetTablePropertiesWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new GetTablePropertiesWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+
+                    // Act
+                    return wordsApi.getTablePropertiesWithoutNodePath(request)
+                        .then((result) => {
+                            // Assert
+                            expect(result.response.statusCode).to.equal(200);
+
+                            expect(result.body.properties).to.exist.and.not.equal(null);
+                        });
+                });
+        });
+    });
+
+    describe("updateTablePropertiesWithoutNodePath function", () => {
+        it("should return response with code 200", () => {
+
+            const wordsApi = BaseTest.initializeWordsApi();
+
+            const localPath = BaseTest.localBaseTestDataFolder + testFolder + "/TablesGet.docx";
+            const remoteFileName = "TestUpdateTablePropertiesWithoutNodePath.docx";
+            const remotePath = BaseTest.remoteBaseTestDataFolder + testFolder;
+
+            return wordsApi.uploadFileToStorage(remotePath + "/" + remoteFileName, localPath)
+            .then((result) => {
+                    expect(result.response.statusMessage).to.equal("OK");
+                    const request = new UpdateTablePropertiesWithoutNodePathRequest();
+                    request.name = remoteFileName;
+                    request.folder = remotePath;
+                    request.index = 0;
+                    request.properties = new TableProperties(
+                        {
+                            alignment: TableProperties.AlignmentEnum.Right,
+                            allowAutoFit: false,
+                            bidi: true,
+                            bottomPadding: 1,
+                            cellSpacing: 2,
+                            leftIndent: 3,
+                            leftPadding: 4,
+                            rightPadding: 5,
+                            styleOptions: TableProperties.StyleOptionsEnum.ColumnBands,
+                            topPadding: 6,
+                        });
+
+                    // Act
+                    return wordsApi.updateTablePropertiesWithoutNodePath(request)
                         .then((result) => {
                             // Assert
                             expect(result.response.statusCode).to.equal(200);

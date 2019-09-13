@@ -29,6 +29,7 @@ import * as fs from "fs";
 import { initializeWordsApi } from "./baseTest";
 
 const testFolder = "./test/";
+const errors:string[] = [];
 
 describe("API method coverage", () => {
     it("each api method should be covered with at least 1 test'", () => {
@@ -46,9 +47,13 @@ describe("API method coverage", () => {
             });
 
             if (!usageOfMethodFound) {
-                fail("usage of api method '" + method + "' not found");                
+                errors.push("\n usage of api method '" + method + "' not found");               
             }
         });
+
+        if(errors.length > 0) {
+            fail(errors.toString());
+        }
     });
 });
 
