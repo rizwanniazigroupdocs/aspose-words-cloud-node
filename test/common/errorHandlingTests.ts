@@ -25,7 +25,8 @@
 import "mocha";
 
 import { expect } from "chai";
-import { GetDocumentRequest } from "../../src/model/model";
+import {IncomingMessage} from "http";
+import { GetDocumentRequest, WordsApiErrorResponse } from "../../src/model/model";
 import { initializeWordsApi } from "../baseTest";
 
 describe("errorHandling tests", () => {
@@ -37,9 +38,11 @@ describe("errorHandling tests", () => {
         request.documentName = "noFileWithThisName.docx";
                         
         return wordsApi.getDocument(request)            
-            .catch((error) => {               
-                expect(error.code).to.equal(404);
-                expect(error.message.startsWith("Error while loading file 'noFileWithThisName.docx' from storage: AmazonS3 Storage exception:")).to.be.true;               
+            .catch((errorResponse) => {
+                expect(errorResponse.response instanceof IncomingMessage).to.be.true;
+                expect(errorResponse.body instanceof WordsApiErrorResponse).to.be.true;
+                expect(errorResponse.response.statusCode).to.equal(404);
+                expect(errorResponse.body.error.message.startsWith("Error while loading file 'noFileWithThisName.docx' from storage: AmazonS3 Storage exception:")).to.be.true;               
             });
     });    
 });

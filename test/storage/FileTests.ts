@@ -143,7 +143,7 @@ describe("Storage file operations", () => {
 
                                     return wordsApi.downloadFile(downloadRequest)
                                         .catch((error) => {
-                                            expect(error.code).to.equal(404);
+                                            expect(error.response.statusCode).to.equal(404);
                                         })
                                 });
                         });
