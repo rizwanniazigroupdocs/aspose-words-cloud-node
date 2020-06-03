@@ -1,30 +1,26 @@
 /*
- * --------------------------------------------------------------------------------
- * <copyright company="Aspose" file="listLevelUpdate.ts">
- *   Copyright (c) 2020 Aspose.Words for Cloud
- * </copyright>
- * <summary>
- *   Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to deal
- *  in the Software without restriction, including without limitation the rights
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- *  copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- * 
- *  The above copyright notice and this permission notice shall be included in all
- *  copies or substantial portions of the Software.
- * 
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- *  SOFTWARE.
- * </summary>
- * --------------------------------------------------------------------------------
- */
+* MIT License
 
+* Copyright (c) 2019 Aspose Pty Ltd
+
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 import { AttributeInfo } from '../internal/attributeInfo';
 
 export const importsMapListLevelUpdate = {
@@ -39,56 +35,55 @@ export class ListLevelUpdate {
      */
     public static attributeTypeMap: Array<AttributeInfo> = [
         {
-            name: "alignment",
-            baseName: "Alignment",
-            type: "ListLevelUpdate.AlignmentEnum",
-        },
-        {
-            name: "isLegal",
-            baseName: "IsLegal",
-            type: "boolean",
-        },
-        {
-            name: "numberFormat",
-            baseName: "NumberFormat",
-            type: "string",
-        },
-        {
-            name: "numberPosition",
-            baseName: "NumberPosition",
+            name: "startAt",
+            baseName: "StartAt",
             type: "number",
-        },
+        },        
         {
             name: "numberStyle",
             baseName: "NumberStyle",
             type: "ListLevelUpdate.NumberStyleEnum",
-        },
+        },        
+        {
+            name: "numberFormat",
+            baseName: "NumberFormat",
+            type: "string",
+        },        
+        {
+            name: "alignment",
+            baseName: "Alignment",
+            type: "ListLevelUpdate.AlignmentEnum",
+        },        
+        {
+            name: "isLegal",
+            baseName: "IsLegal",
+            type: "boolean",
+        },        
         {
             name: "restartAfterLevel",
             baseName: "RestartAfterLevel",
             type: "number",
-        },
-        {
-            name: "startAt",
-            baseName: "StartAt",
-            type: "number",
-        },
-        {
-            name: "tabPosition",
-            baseName: "TabPosition",
-            type: "number",
-        },
-        {
-            name: "textPosition",
-            baseName: "TextPosition",
-            type: "number",
-        },
+        },        
         {
             name: "trailingCharacter",
             baseName: "TrailingCharacter",
             type: "ListLevelUpdate.TrailingCharacterEnum",
-        }
-    ];
+        },        
+        {
+            name: "tabPosition",
+            baseName: "TabPosition",
+            type: "number",
+        },        
+        {
+            name: "numberPosition",
+            baseName: "NumberPosition",
+            type: "number",
+        },        
+        {
+            name: "textPosition",
+            baseName: "TextPosition",
+            type: "number",
+        }    ];
 
     /**
      * Returns attribute type map
@@ -98,62 +93,59 @@ export class ListLevelUpdate {
     }
 
     /**
-     * Gets or sets the justification of the actual number of the list item.
+     * Gets or sets returns or sets the starting number for this list level.
      */
-    public alignment: ListLevelUpdate.AlignmentEnum;
-
-    /**
-     * Gets or sets a value indicating whether true if the level turns all inherited numbers to Arabic, false if it preserves
-     * their number style.
-     */
-    public isLegal: boolean;
-
-    /**
-     * Gets or sets returns or sets the number format for the list level.
-     */
-    public numberFormat: string;
-
-    /**
-     * Gets or sets returns or sets the position (in points) of the number or bullet for the list
-     * level.
-     */
-    public numberPosition: number;
-
+    public startAt: number;
+    
     /**
      * Gets or sets returns or sets the number style for this list level.
      */
     public numberStyle: ListLevelUpdate.NumberStyleEnum;
-
+    
     /**
-     * Gets or sets or returns the list level that must appear before the specified list level
-     * restarts numbering.
+     * Gets or sets returns or sets the number format for the list level.
+     */
+    public numberFormat: string;
+    
+    /**
+     * Gets or sets the justification of the actual number of the list item.
+     */
+    public alignment: ListLevelUpdate.AlignmentEnum;
+    
+    /**
+     * Gets or sets a value indicating whether true if the level turns all inherited numbers to Arabic, false if it preserves their number style.
+     */
+    public isLegal: boolean;
+    
+    /**
+     * Gets or sets or returns the list level that must appear before the specified list level restarts numbering.
      */
     public restartAfterLevel: number;
-
-    /**
-     * Gets or sets returns or sets the starting number for this list level.
-     */
-    public startAt: number;
-
-    /**
-     * Gets or sets returns or sets the tab position (in points) for the list level.
-     */
-    public tabPosition: number;
-
-    /**
-     * Gets or sets returns or sets the position (in points) for the second line of wrapping text
-     * for the list level.
-     */
-    public textPosition: number;
-
+    
     /**
      * Gets or sets returns or sets the character inserted after the number for the list level.
      */
     public trailingCharacter: ListLevelUpdate.TrailingCharacterEnum;
-
-    public constructor(init?: Partial< ListLevelUpdate >) {
+    
+    /**
+     * Gets or sets returns or sets the tab position (in points) for the list level.
+     */
+    public tabPosition: number;
+    
+    /**
+     * Gets or sets returns or sets the position (in points) of the number or bullet for the list level.
+     */
+    public numberPosition: number;
+    
+    /**
+     * Gets or sets returns or sets the position (in points) for the second line of wrapping text for the list level.
+     */
+    public textPosition: number;
+    
+    public constructor(init?: Partial<ListLevelUpdate>) {
+        
         Object.assign(this, init);
-    }
+    }        
 }
 
 /**
@@ -162,12 +154,6 @@ export class ListLevelUpdate {
 // tslint:disable:quotemark
 // tslint:disable-next-line:no-namespace
 export namespace ListLevelUpdate {
-    export enum AlignmentEnum {
-        Left = 'Left' as any,
-        Center = 'Center' as any,
-        Right = 'Right' as any
-    }
-
     export enum NumberStyleEnum {
         Arabic = 'Arabic' as any,
         UppercaseRoman = 'UppercaseRoman' as any,
@@ -230,14 +216,17 @@ export namespace ListLevelUpdate {
         LowercaseRussian = 'LowercaseRussian' as any,
         UppercaseRussian = 'UppercaseRussian' as any,
         None = 'None' as any,
-        Custom = 'Custom' as any
+        Custom = 'Custom' as any,
     }
-
+    export enum AlignmentEnum {
+        Left = 'Left' as any,
+        Center = 'Center' as any,
+        Right = 'Right' as any,
+    }
     export enum TrailingCharacterEnum {
         Tab = 'Tab' as any,
         Space = 'Space' as any,
-        Nothing = 'Nothing' as any
+        Nothing = 'Nothing' as any,
     }
 }
 // tslint:enable:quotemark
-

@@ -1,30 +1,26 @@
 /*
- * --------------------------------------------------------------------------------
- * <copyright company="Aspose" file="saveOptionsData.ts">
- *   Copyright (c) 2020 Aspose.Words for Cloud
- * </copyright>
- * <summary>
- *   Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to deal
- *  in the Software without restriction, including without limitation the rights
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- *  copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- * 
- *  The above copyright notice and this permission notice shall be included in all
- *  copies or substantial portions of the Software.
- * 
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- *  SOFTWARE.
- * </summary>
- * --------------------------------------------------------------------------------
- */
+* MIT License
 
+* Copyright (c) 2019 Aspose Pty Ltd
+
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 import { AttributeInfo } from '../internal/attributeInfo';
 
 export const importsMapSaveOptionsData = {
@@ -39,56 +35,55 @@ export class SaveOptionsData {
      */
     public static attributeTypeMap: Array<AttributeInfo> = [
         {
-            name: "dml3DEffectsRenderingMode",
-            baseName: "Dml3DEffectsRenderingMode",
-            type: "SaveOptionsData.Dml3DEffectsRenderingModeEnum",
-        },
-        {
-            name: "dmlEffectsRenderingMode",
-            baseName: "DmlEffectsRenderingMode",
+            name: "saveFormat",
+            baseName: "SaveFormat",
             type: "string",
-        },
-        {
-            name: "dmlRenderingMode",
-            baseName: "DmlRenderingMode",
-            type: "string",
-        },
+        },        
         {
             name: "fileName",
             baseName: "FileName",
             type: "string",
-        },
+        },        
         {
-            name: "saveFormat",
-            baseName: "SaveFormat",
+            name: "dmlRenderingMode",
+            baseName: "DmlRenderingMode",
             type: "string",
-        },
+        },        
         {
-            name: "updateFields",
-            baseName: "UpdateFields",
-            type: "boolean",
-        },
-        {
-            name: "updateLastPrintedProperty",
-            baseName: "UpdateLastPrintedProperty",
-            type: "boolean",
-        },
-        {
-            name: "updateLastSavedTimeProperty",
-            baseName: "UpdateLastSavedTimeProperty",
-            type: "boolean",
-        },
-        {
-            name: "updateSdtContent",
-            baseName: "UpdateSdtContent",
-            type: "boolean",
-        },
+            name: "dmlEffectsRenderingMode",
+            baseName: "DmlEffectsRenderingMode",
+            type: "string",
+        },        
         {
             name: "zipOutput",
             baseName: "ZipOutput",
             type: "boolean",
-        }
-    ];
+        },        
+        {
+            name: "updateLastSavedTimeProperty",
+            baseName: "UpdateLastSavedTimeProperty",
+            type: "boolean",
+        },        
+        {
+            name: "updateSdtContent",
+            baseName: "UpdateSdtContent",
+            type: "boolean",
+        },        
+        {
+            name: "updateFields",
+            baseName: "UpdateFields",
+            type: "boolean",
+        },        
+        {
+            name: "dml3DEffectsRenderingMode",
+            baseName: "Dml3DEffectsRenderingMode",
+            type: "SaveOptionsData.Dml3DEffectsRenderingModeEnum",
+        },        
+        {
+            name: "updateLastPrintedProperty",
+            baseName: "UpdateLastPrintedProperty",
+            type: "boolean",
+        }    ];
 
     /**
      * Returns attribute type map
@@ -98,63 +93,59 @@ export class SaveOptionsData {
     }
 
     /**
-     * Gets or sets a value determining how 3D effects are rendered.
+     * Gets or sets format of save.
      */
-    public dml3DEffectsRenderingMode: SaveOptionsData.Dml3DEffectsRenderingModeEnum;
-
-    /**
-     * Gets or sets a value determining how DrawingML effects are rendered.
-     * { Simplified | None | Fine }.
-     */
-    public dmlEffectsRenderingMode: string;
-
-    /**
-     * Gets or sets a value determining how DrawingML shapes are rendered.
-     * { Fallback | DrawingML }.
-     */
-    public dmlRenderingMode: string;
-
+    public saveFormat: string;
+    
     /**
      * Gets or sets name of destination file.
      */
     public fileName: string;
-
+    
     /**
-     * Gets or sets format of save.
+     * Gets or sets a value determining how DrawingML shapes are rendered. { Fallback | DrawingML }.
      */
-    public saveFormat: string;
-
+    public dmlRenderingMode: string;
+    
     /**
-     * Gets or sets a value determining if fields should be updated before saving the document to a fixed page format.
-     * Default value for this property is. true.
+     * Gets or sets a value determining how DrawingML effects are rendered. { Simplified | None | Fine }.
      */
-    public updateFields: boolean;
-
+    public dmlEffectsRenderingMode: string;
+    
     /**
-     * Gets or sets a value determining whether the Aspose.Words.Properties.BuiltInDocumentProperties.LastPrinted
-     * property is updated before saving.
+     * Gets or sets controls zip output or not. Default value is false.
      */
-    public updateLastPrintedProperty: boolean;
-
+    public zipOutput: boolean;
+    
     /**
      * Gets or sets a value determining whether the Aspose.Words.Properties.BuiltInDocumentProperties.LastSavedTime property is updated before saving.
      */
     public updateLastSavedTimeProperty: boolean;
-
+    
     /**
      * Gets or sets value determining whether content of StructuredDocumentTag is updated before saving.
      */
     public updateSdtContent: boolean;
-
+    
     /**
-     * Gets or sets controls zip output or not.
-     * Default value is false.
+     * Gets or sets a value determining if fields should be updated before saving the document to a fixed page format. Default value for this property is. true
      */
-    public zipOutput: boolean;
-
-    public constructor(init?: Partial< SaveOptionsData >) {
+    public updateFields: boolean;
+    
+    /**
+     * Gets or sets a value determining how 3D effects are rendered.
+     */
+    public dml3DEffectsRenderingMode: SaveOptionsData.Dml3DEffectsRenderingModeEnum;
+    
+    /**
+     * Gets or sets a value determining whether the Aspose.Words.Properties.BuiltInDocumentProperties.LastPrinted property is updated before saving.
+     */
+    public updateLastPrintedProperty: boolean;
+    
+    public constructor(init?: Partial<SaveOptionsData>) {
+        
         Object.assign(this, init);
-    }
+    }        
 }
 
 /**
@@ -165,8 +156,7 @@ export class SaveOptionsData {
 export namespace SaveOptionsData {
     export enum Dml3DEffectsRenderingModeEnum {
         Basic = 'Basic' as any,
-        Advanced = 'Advanced' as any
+        Advanced = 'Advanced' as any,
     }
 }
 // tslint:enable:quotemark
-

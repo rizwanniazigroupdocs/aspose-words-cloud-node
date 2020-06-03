@@ -1,30 +1,26 @@
 /*
- * --------------------------------------------------------------------------------
- * <copyright company="Aspose" file="searchResponse.ts">
- *   Copyright (c) 2020 Aspose.Words for Cloud
- * </copyright>
- * <summary>
- *   Permission is hereby granted, free of charge, to any person obtaining a copy
- *  of this software and associated documentation files (the "Software"), to deal
- *  in the Software without restriction, including without limitation the rights
- *  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- *  copies of the Software, and to permit persons to whom the Software is
- *  furnished to do so, subject to the following conditions:
- * 
- *  The above copyright notice and this permission notice shall be included in all
- *  copies or substantial portions of the Software.
- * 
- *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- *  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- *  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- *  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- *  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- *  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- *  SOFTWARE.
- * </summary>
- * --------------------------------------------------------------------------------
- */
+* MIT License
 
+* Copyright (c) 2019 Aspose Pty Ltd
+
+* Permission is hereby granted, free of charge, to any person obtaining a copy
+* of this software and associated documentation files (the "Software"), to deal
+* in the Software without restriction, including without limitation the rights
+* to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+* copies of the Software, and to permit persons to whom the Software is
+* furnished to do so, subject to the following conditions:
+
+* The above copyright notice and this permission notice shall be included in all
+* copies or substantial portions of the Software.
+
+* THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+* IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+* FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+* AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+* LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+* OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+* SOFTWARE.
+*/
 import { AttributeInfo } from '../internal/attributeInfo';
 import { SearchResultsCollection } from './searchResultsCollection';
 import { WordsResponse } from './wordsResponse';
@@ -35,8 +31,7 @@ export const importsMapSearchResponse = {
 };
 
 /**
- * This response should be returned by the service when handling:
- * GET https://api.aspose.cloud/v4.0/words/Test.doc/search.
+ * This response should be returned by the service when handling: GET https://api.aspose.cloud/v4.0/words/Test.doc/search.
  */
 export class SearchResponse extends WordsResponse {
     /**
@@ -47,13 +42,12 @@ export class SearchResponse extends WordsResponse {
             name: "searchingPattern",
             baseName: "SearchingPattern",
             type: "string",
-        },
+        },        
         {
             name: "searchResults",
             baseName: "SearchResults",
             type: "SearchResultsCollection",
-        }
-    ];
+        }    ];
 
     /**
      * Returns attribute type map
@@ -66,15 +60,14 @@ export class SearchResponse extends WordsResponse {
      * Gets or sets a regular expression pattern used to find matches.
      */
     public searchingPattern: string;
-
+    
     /**
-     * Gets or sets collection of search results.
+     * Gets or sets searchResults.
      */
     public searchResults: SearchResultsCollection;
-
-    public constructor(init?: Partial< SearchResponse >) {
+    
+    public constructor(init?: Partial<SearchResponse>) {
         super(init);
         Object.assign(this, init);
-    }
+    }        
 }
-
