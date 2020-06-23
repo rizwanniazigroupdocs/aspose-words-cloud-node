@@ -1,6 +1,6 @@
 /*
  * --------------------------------------------------------------------------------
- * <copyright company="Aspose" file="textSaveOptionsData.ts">
+ * <copyright company="Aspose" file="paragraphFormatUpdate.ts">
  *   Copyright (c) 2020 Aspose.Words for Cloud
  * </copyright>
  * <summary>
@@ -26,61 +26,31 @@
  */
 
 import { AttributeInfo } from '../internal/attributeInfo';
-import { TxtSaveOptionsBaseData } from './txtSaveOptionsBaseData';
+import { ParagraphFormatBase } from './paragraphFormatBase';
 
-export const importsMapTextSaveOptionsData = {
-    TxtSaveOptionsBaseData,
+export const importsMapParagraphFormatUpdate = {
+    ParagraphFormatBase,
 };
 
 /**
- * Container class for text save options.
+ * Paragraph format element update DTO.
  */
-export class TextSaveOptionsData extends TxtSaveOptionsBaseData {
+export class ParagraphFormatUpdate extends ParagraphFormatBase {
     /**
      * Attribute type map
      */
     public static attributeTypeMap: Array<AttributeInfo> = [
-        {
-            name: "addBidiMarks",
-            baseName: "AddBidiMarks",
-            type: "boolean",
-        },
-        {
-            name: "preserveTableLayout",
-            baseName: "PreserveTableLayout",
-            type: "boolean",
-        },
-        {
-            name: "simplifyListLabels",
-            baseName: "SimplifyListLabels",
-            type: "boolean",
-        }
     ];
 
     /**
      * Returns attribute type map
      */
     public static getAttributeTypeMap() {
-        return super.getAttributeTypeMap().concat(TextSaveOptionsData.attributeTypeMap);
+        return super.getAttributeTypeMap().concat(ParagraphFormatUpdate.attributeTypeMap);
     }
 
-    /**
-     * Gets or sets specifies whether to add bi-directional marks before each BiDi run when exporting in plain text format.
-     * The default value is true.
-     */
-    public addBidiMarks: boolean;
 
-    /**
-     * Gets or sets specifies whether the program should attempt to preserve layout of tables when saving in the plain text format.
-     */
-    public preserveTableLayout: boolean;
-
-    /**
-     * Gets or sets specifies whether the program should simplify list labels in case of complex label formatting not being adequately represented by plain text.
-     */
-    public simplifyListLabels: boolean;
-
-    public constructor(init?: Partial< TextSaveOptionsData >) {
+    public constructor(init?: Partial< ParagraphFormatUpdate >) {
         super(init);
         Object.assign(this, init);
     }
