@@ -26,16 +26,16 @@
  */
 
 import { AttributeInfo } from '../internal/attributeInfo';
-import { TxtSaveOptionsBaseData } from './txtSaveOptionsBaseData';
+import { SaveOptionsData } from './saveOptionsData';
 
 export const importsMapTextSaveOptionsData = {
-    TxtSaveOptionsBaseData,
+    SaveOptionsData,
 };
 
 /**
  * Container class for text save options.
  */
-export class TextSaveOptionsData extends TxtSaveOptionsBaseData {
+export class TextSaveOptionsData extends SaveOptionsData {
     /**
      * Attribute type map
      */
@@ -44,6 +44,26 @@ export class TextSaveOptionsData extends TxtSaveOptionsBaseData {
             name: "addBidiMarks",
             baseName: "AddBidiMarks",
             type: "boolean",
+        },
+        {
+            name: "encoding",
+            baseName: "Encoding",
+            type: "string",
+        },
+        {
+            name: "exportHeadersFootersMode",
+            baseName: "ExportHeadersFootersMode",
+            type: "TextSaveOptionsData.ExportHeadersFootersModeEnum",
+        },
+        {
+            name: "forcePageBreaks",
+            baseName: "ForcePageBreaks",
+            type: "boolean",
+        },
+        {
+            name: "paragraphBreak",
+            baseName: "ParagraphBreak",
+            type: "string",
         },
         {
             name: "preserveTableLayout",
@@ -71,6 +91,28 @@ export class TextSaveOptionsData extends TxtSaveOptionsBaseData {
     public addBidiMarks: boolean;
 
     /**
+     * Gets or sets specifies the encoding to use when exporting in plain text format.
+     */
+    public encoding: string;
+
+    /**
+     * Gets or sets specifies whether to output headers and footers when exporting in plain text format.
+     * default value is TxtExportHeadersFootersMode.PrimaryOnly.
+     */
+    public exportHeadersFootersMode: TextSaveOptionsData.ExportHeadersFootersModeEnum;
+
+    /**
+     * Gets or sets allows to specify whether the page breaks should be preserved during export.
+     * The default value is false.
+     */
+    public forcePageBreaks: boolean;
+
+    /**
+     * Gets or sets specifies the string to use as a paragraph break when exporting in plain text format.
+     */
+    public paragraphBreak: string;
+
+    /**
      * Gets or sets specifies whether the program should attempt to preserve layout of tables when saving in the plain text format.
      */
     public preserveTableLayout: boolean;
@@ -85,4 +127,18 @@ export class TextSaveOptionsData extends TxtSaveOptionsBaseData {
         Object.assign(this, init);
     }
 }
+
+/**
+ * Enums for TextSaveOptionsData
+ */
+// tslint:disable:quotemark
+// tslint:disable-next-line:no-namespace
+export namespace TextSaveOptionsData {
+    export enum ExportHeadersFootersModeEnum {
+        None = 'None' as any,
+        PrimaryOnly = 'PrimaryOnly' as any,
+        AllAtEnd = 'AllAtEnd' as any
+    }
+}
+// tslint:enable:quotemark
 

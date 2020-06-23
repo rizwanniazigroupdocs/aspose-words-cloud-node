@@ -140,7 +140,6 @@ import * as importedLists from './lists';
 import * as importedListsResponse from './listsResponse';
 import * as importedListUpdate from './listUpdate';
 import * as importedLoadWebDocumentData from './loadWebDocumentData';
-import * as importedMarkdownSaveOptionsData from './markdownSaveOptionsData';
 import * as importedMetafileRenderingOptionsData from './metafileRenderingOptionsData';
 import * as importedMhtmlSaveOptionsData from './mhtmlSaveOptionsData';
 import * as importedModificationOperationResult from './modificationOperationResult';
@@ -158,9 +157,7 @@ import * as importedPageSetup from './pageSetup';
 import * as importedPageStatData from './pageStatData';
 import * as importedParagraph from './paragraph';
 import * as importedParagraphFormat from './paragraphFormat';
-import * as importedParagraphFormatBase from './paragraphFormatBase';
 import * as importedParagraphFormatResponse from './paragraphFormatResponse';
-import * as importedParagraphFormatUpdate from './paragraphFormatUpdate';
 import * as importedParagraphInsert from './paragraphInsert';
 import * as importedParagraphLink from './paragraphLink';
 import * as importedParagraphLinkCollection from './paragraphLinkCollection';
@@ -245,7 +242,6 @@ import * as importedTabStopInsert from './tabStopInsert';
 import * as importedTabStopsResponse from './tabStopsResponse';
 import * as importedTextSaveOptionsData from './textSaveOptionsData';
 import * as importedTiffSaveOptionsData from './tiffSaveOptionsData';
-import * as importedTxtSaveOptionsBaseData from './txtSaveOptionsBaseData';
 import * as importedWatermarkText from './watermarkText';
 import * as importedWordMLSaveOptionsData from './wordMLSaveOptionsData';
 import * as importedWordsApiErrorResponse from './wordsApiErrorResponse';
@@ -370,7 +366,6 @@ export * from './lists';
 export * from './listsResponse';
 export * from './listUpdate';
 export * from './loadWebDocumentData';
-export * from './markdownSaveOptionsData';
 export * from './metafileRenderingOptionsData';
 export * from './mhtmlSaveOptionsData';
 export * from './modificationOperationResult';
@@ -388,9 +383,7 @@ export * from './pageSetup';
 export * from './pageStatData';
 export * from './paragraph';
 export * from './paragraphFormat';
-export * from './paragraphFormatBase';
 export * from './paragraphFormatResponse';
-export * from './paragraphFormatUpdate';
 export * from './paragraphInsert';
 export * from './paragraphLink';
 export * from './paragraphLinkCollection';
@@ -475,7 +468,6 @@ export * from './tabStopInsert';
 export * from './tabStopsResponse';
 export * from './textSaveOptionsData';
 export * from './tiffSaveOptionsData';
-export * from './txtSaveOptionsBaseData';
 export * from './watermarkText';
 export * from './wordMLSaveOptionsData';
 export * from './wordsApiErrorResponse';
@@ -537,7 +529,6 @@ const enumsMap = {
     "ListLevelUpdate.AlignmentEnum": importedListLevelUpdate.ListLevelUpdate.AlignmentEnum,
     "ListLevelUpdate.NumberStyleEnum": importedListLevelUpdate.ListLevelUpdate.NumberStyleEnum,
     "ListLevelUpdate.TrailingCharacterEnum": importedListLevelUpdate.ListLevelUpdate.TrailingCharacterEnum,
-    "MarkdownSaveOptionsData.TableContentAlignmentEnum": importedMarkdownSaveOptionsData.MarkdownSaveOptionsData.TableContentAlignmentEnum,
     "OdtSaveOptionsData.MeasureUnitEnum": importedOdtSaveOptionsData.OdtSaveOptionsData.MeasureUnitEnum,
     "OfficeMathObject.DisplayTypeEnum": importedOfficeMathObject.OfficeMathObject.DisplayTypeEnum,
     "OfficeMathObject.JustificationEnum": importedOfficeMathObject.OfficeMathObject.JustificationEnum,
@@ -551,11 +542,11 @@ const enumsMap = {
     "PageSetup.PaperSizeEnum": importedPageSetup.PageSetup.PaperSizeEnum,
     "PageSetup.SectionStartEnum": importedPageSetup.PageSetup.SectionStartEnum,
     "PageSetup.VerticalAlignmentEnum": importedPageSetup.PageSetup.VerticalAlignmentEnum,
-    "ParagraphFormatBase.AlignmentEnum": importedParagraphFormatBase.ParagraphFormatBase.AlignmentEnum,
-    "ParagraphFormatBase.DropCapPositionEnum": importedParagraphFormatBase.ParagraphFormatBase.DropCapPositionEnum,
-    "ParagraphFormatBase.LineSpacingRuleEnum": importedParagraphFormatBase.ParagraphFormatBase.LineSpacingRuleEnum,
-    "ParagraphFormatBase.OutlineLevelEnum": importedParagraphFormatBase.ParagraphFormatBase.OutlineLevelEnum,
-    "ParagraphFormatBase.StyleIdentifierEnum": importedParagraphFormatBase.ParagraphFormatBase.StyleIdentifierEnum,
+    "ParagraphFormat.AlignmentEnum": importedParagraphFormat.ParagraphFormat.AlignmentEnum,
+    "ParagraphFormat.DropCapPositionEnum": importedParagraphFormat.ParagraphFormat.DropCapPositionEnum,
+    "ParagraphFormat.LineSpacingRuleEnum": importedParagraphFormat.ParagraphFormat.LineSpacingRuleEnum,
+    "ParagraphFormat.OutlineLevelEnum": importedParagraphFormat.ParagraphFormat.OutlineLevelEnum,
+    "ParagraphFormat.StyleIdentifierEnum": importedParagraphFormat.ParagraphFormat.StyleIdentifierEnum,
     "PdfSaveOptionsData.HeaderFooterBookmarksExportModeEnum": importedPdfSaveOptionsData.PdfSaveOptionsData.HeaderFooterBookmarksExportModeEnum,
     "PreferredWidth.TypeEnum": importedPreferredWidth.PreferredWidth.TypeEnum,
     "ReplaceRange.TextTypeEnum": importedReplaceRange.ReplaceRange.TextTypeEnum,
@@ -581,7 +572,7 @@ const enumsMap = {
     "TableRowFormat.HeightRuleEnum": importedTableRowFormat.TableRowFormat.HeightRuleEnum,
     "TabStopBase.AlignmentEnum": importedTabStopBase.TabStopBase.AlignmentEnum,
     "TabStopBase.LeaderEnum": importedTabStopBase.TabStopBase.LeaderEnum,
-    "TxtSaveOptionsBaseData.ExportHeadersFootersModeEnum": importedTxtSaveOptionsBaseData.TxtSaveOptionsBaseData.ExportHeadersFootersModeEnum,
+    "TextSaveOptionsData.ExportHeadersFootersModeEnum": importedTextSaveOptionsData.TextSaveOptionsData.ExportHeadersFootersModeEnum,
 
 };
 
@@ -699,7 +690,6 @@ const typeMap = {
     ListsResponse: importedListsResponse.ListsResponse,
     ListUpdate: importedListUpdate.ListUpdate,
     LoadWebDocumentData: importedLoadWebDocumentData.LoadWebDocumentData,
-    MarkdownSaveOptionsData: importedMarkdownSaveOptionsData.MarkdownSaveOptionsData,
     MetafileRenderingOptionsData: importedMetafileRenderingOptionsData.MetafileRenderingOptionsData,
     MhtmlSaveOptionsData: importedMhtmlSaveOptionsData.MhtmlSaveOptionsData,
     ModificationOperationResult: importedModificationOperationResult.ModificationOperationResult,
@@ -717,9 +707,7 @@ const typeMap = {
     PageStatData: importedPageStatData.PageStatData,
     Paragraph: importedParagraph.Paragraph,
     ParagraphFormat: importedParagraphFormat.ParagraphFormat,
-    ParagraphFormatBase: importedParagraphFormatBase.ParagraphFormatBase,
     ParagraphFormatResponse: importedParagraphFormatResponse.ParagraphFormatResponse,
-    ParagraphFormatUpdate: importedParagraphFormatUpdate.ParagraphFormatUpdate,
     ParagraphInsert: importedParagraphInsert.ParagraphInsert,
     ParagraphLink: importedParagraphLink.ParagraphLink,
     ParagraphLinkCollection: importedParagraphLinkCollection.ParagraphLinkCollection,
@@ -804,7 +792,6 @@ const typeMap = {
     TabStopsResponse: importedTabStopsResponse.TabStopsResponse,
     TextSaveOptionsData: importedTextSaveOptionsData.TextSaveOptionsData,
     TiffSaveOptionsData: importedTiffSaveOptionsData.TiffSaveOptionsData,
-    TxtSaveOptionsBaseData: importedTxtSaveOptionsBaseData.TxtSaveOptionsBaseData,
     WatermarkText: importedWatermarkText.WatermarkText,
     WordMLSaveOptionsData: importedWordMLSaveOptionsData.WordMLSaveOptionsData,
     WordsApiErrorResponse: importedWordsApiErrorResponse.WordsApiErrorResponse,
@@ -10019,7 +10006,7 @@ export class UpdateParagraphFormatRequest {
     /**
      * Paragraph format object.
      */
-    public dto: importedParagraphFormatUpdate.ParagraphFormatUpdate;
+    public dto: importedParagraphFormat.ParagraphFormat;
 
     /**
      * Path to the node which contains paragraphs.
@@ -10067,6 +10054,66 @@ export class UpdateParagraphFormatRequest {
     public revisionDateTime: string;
 
     public constructor(init?: Partial< UpdateParagraphFormatRequest >) {
+        Object.assign(this, init);
+    }
+}
+
+/**
+ * Request model for UpdateParagraphFormatWithoutNodePath operation.
+ * Updates paragraph format properties, returns updated format properties.
+ */
+export class UpdateParagraphFormatWithoutNodePathRequest {
+    /**
+     * The document name.
+     */
+    public name: string;
+
+    /**
+     * Paragraph format object.
+     */
+    public dto: importedParagraphFormat.ParagraphFormat;
+
+    /**
+     * Object index.
+     */
+    public index: number;
+
+    /**
+     * Original document folder.
+     */
+    public folder: string;
+
+    /**
+     * Original document storage.
+     */
+    public storage: string;
+
+    /**
+     * Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
+     */
+    public loadEncoding: string;
+
+    /**
+     * Password for opening an encrypted document.
+     */
+    public password: string;
+
+    /**
+     * Result path of the document after the operation. If this parameter is omitted then result of the operation will be saved as the source document.
+     */
+    public destFileName: string;
+
+    /**
+     * Initials of the author to use for revisions.If you set this parameter and then make some changes to the document programmatically, save the document and later open the document in MS Word you will see these changes as revisions.
+     */
+    public revisionAuthor: string;
+
+    /**
+     * The date and time to use for revisions.
+     */
+    public revisionDateTime: string;
+
+    public constructor(init?: Partial< UpdateParagraphFormatWithoutNodePathRequest >) {
         Object.assign(this, init);
     }
 }
