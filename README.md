@@ -103,6 +103,38 @@ The complete source code is available at [GitHub Repository](https://github.com/
 ```js
         // Start README example
 
+        // create API instance (baseUrl is optional)
+        const wordsApi = new WordsApi(appSid, appKey, baseUrl);
+
+        // upload file to the Aspose cloud
+        const uploadRequest = new UploadFileRequest();
+        uploadRequest.path = "uploaded.docx";
+        uploadRequest.fileContent = createReadStream(localPath);
+
+        wordsApi.uploadFile(uploadRequest)
+            .then((_uploadResult) => {
+                // save the file as pdf in the cloud
+                const request = new SaveAsRequest({
+                    name: "uploaded.docx",
+                    saveOptionsData: new SaveOptionsData(
+                        {
+                            saveFormat: "pdf",
+                            fileName: "destination.pdf"
+                        })
+                });
+
+                wordsApi.saveAs(request)
+                    .then((_result) => {
+                        // deal with the pdf file
+                    })
+                    .catch(function(_err) {
+                        // handle saveAs request error
+                    });
+            })
+            .catch(function(_err) {
+                // handle uploadFile request error
+            });
+
         // End README example
 ```
 
