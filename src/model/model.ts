@@ -873,7 +873,7 @@ export class AppendDocumentRequest {
     public name: string;
 
     /**
-     * DocumentEntryList with a list of documents to append.
+     * <see cref="DocumentEntryList"/> with a list of documents to append.
      */
     public documentList: importedDocumentEntryList.DocumentEntryList;
 
@@ -913,6 +913,26 @@ export class AppendDocumentRequest {
     public revisionDateTime: string;
 
     public constructor(init?: Partial< AppendDocumentRequest >) {
+        Object.assign(this, init);
+    }
+}
+
+/**
+ * Request model for AppendDocumentOnline operation.
+ * Appends documents to original document.
+ */
+export class AppendDocumentOnlineRequest {
+    /**
+     * The document.
+     */
+    public document: Readable;
+
+    /**
+     * <see cref="DocumentEntryList"/> with a list of documents to append.
+     */
+    public documentList: importedDocumentEntryList.DocumentEntryList;
+
+    public constructor(init?: Partial< AppendDocumentOnlineRequest >) {
         Object.assign(this, init);
     }
 }
@@ -1183,11 +1203,6 @@ export class ConvertDocumentRequest {
     public format: string;
 
     /**
-     * Original document storage.
-     */
-    public storage: string;
-
-    /**
      * Path for saving operation result to the local storage.
      */
     public outPath: string;
@@ -1196,6 +1211,11 @@ export class ConvertDocumentRequest {
      * This file name will be used when resulting document has dynamic field for document file name {filename}. If it is not set, "sourceFilename" will be used instead.
      */
     public fileNameFieldValue: string;
+
+    /**
+     * Original document storage.
+     */
+    public storage: string;
 
     /**
      * Folder in filestorage with custom fonts.
@@ -1335,11 +1355,6 @@ export class CopyStyleRequest {
  */
 export class CreateDocumentRequest {
     /**
-     * Original document storage.
-     */
-    public storage: string;
-
-    /**
      * The document name.
      */
     public fileName: string;
@@ -1348,6 +1363,11 @@ export class CreateDocumentRequest {
      * The document folder.
      */
     public folder: string;
+
+    /**
+     * Original document storage.
+     */
+    public storage: string;
 
     public constructor(init?: Partial< CreateDocumentRequest >) {
         Object.assign(this, init);
@@ -2830,6 +2850,56 @@ export class DeleteParagraphListFormatWithoutNodePathRequest {
 }
 
 /**
+ * Request model for DeleteParagraphOnline operation.
+ * Removes paragraph from section.
+ */
+export class DeleteParagraphOnlineRequest {
+    /**
+     * Path to the node which contains paragraphs.
+     */
+    public nodePath: string;
+
+    /**
+     * The document.
+     */
+    public document: Readable;
+
+    /**
+     * Object index.
+     */
+    public index: number;
+
+    /**
+     * Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
+     */
+    public loadEncoding: string;
+
+    /**
+     * Password for opening an encrypted document.
+     */
+    public password: string;
+
+    /**
+     * Result path of the document after the operation. If this parameter is omitted then result of the operation will be saved as the source document.
+     */
+    public destFileName: string;
+
+    /**
+     * Initials of the author to use for revisions.If you set this parameter and then make some changes to the document programmatically, save the document and later open the document in MS Word you will see these changes as revisions.
+     */
+    public revisionAuthor: string;
+
+    /**
+     * The date and time to use for revisions.
+     */
+    public revisionDateTime: string;
+
+    public constructor(init?: Partial< DeleteParagraphOnlineRequest >) {
+        Object.assign(this, init);
+    }
+}
+
+/**
  * Request model for DeleteParagraphTabStop operation.
  * Remove the i-th tab stop.
  */
@@ -4177,12 +4247,12 @@ export class GetDocumentFieldNamesRequest {
  */
 export class GetDocumentFieldNamesOnlineRequest {
     /**
-     * File with template.
+     * The document.
      */
-    public template: Readable;
+    public document: Readable;
 
     /**
-     * Use non merge fields or not.
+     * If true, result includes "mustache" field names.
      */
     public useNonMergeFields: boolean;
 
@@ -4422,6 +4492,36 @@ export class GetDocumentStatisticsRequest {
     public includeTextInShapes: boolean;
 
     public constructor(init?: Partial< GetDocumentStatisticsRequest >) {
+        Object.assign(this, init);
+    }
+}
+
+/**
+ * Request model for GetDocumentStatisticsOnline operation.
+ * Reads document statistics.
+ */
+export class GetDocumentStatisticsOnlineRequest {
+    /**
+     * The document.
+     */
+    public document: Readable;
+
+    /**
+     * Support including/excluding comments from the WordCount. Default value is "false".
+     */
+    public includeComments: boolean;
+
+    /**
+     * Support including/excluding footnotes from the WordCount. Default value is "false".
+     */
+    public includeFootnotes: boolean;
+
+    /**
+     * Support including/excluding shape's text from the WordCount. Default value is "false".
+     */
+    public includeTextInShapes: boolean;
+
+    public constructor(init?: Partial< GetDocumentStatisticsOnlineRequest >) {
         Object.assign(this, init);
     }
 }
@@ -5567,6 +5667,41 @@ export class GetParagraphListFormatWithoutNodePathRequest {
 }
 
 /**
+ * Request model for GetParagraphOnline operation.
+ * This resource represents one of the paragraphs contained in the document.
+ */
+export class GetParagraphOnlineRequest {
+    /**
+     * Path to the node which contains paragraphs.
+     */
+    public nodePath: string;
+
+    /**
+     * The document.
+     */
+    public document: Readable;
+
+    /**
+     * Object index.
+     */
+    public index: number;
+
+    /**
+     * Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
+     */
+    public loadEncoding: string;
+
+    /**
+     * Password for opening an encrypted document.
+     */
+    public password: string;
+
+    public constructor(init?: Partial< GetParagraphOnlineRequest >) {
+        Object.assign(this, init);
+    }
+}
+
+/**
  * Request model for GetParagraphs operation.
  * Returns a list of paragraphs that are contained in the document.
  */
@@ -5602,6 +5737,36 @@ export class GetParagraphsRequest {
     public password: string;
 
     public constructor(init?: Partial< GetParagraphsRequest >) {
+        Object.assign(this, init);
+    }
+}
+
+/**
+ * Request model for GetParagraphsOnline operation.
+ * Returns a list of paragraphs that are contained in the document.
+ */
+export class GetParagraphsOnlineRequest {
+    /**
+     * Path to the node which contains paragraphs.
+     */
+    public nodePath: string;
+
+    /**
+     * The document.
+     */
+    public document: Readable;
+
+    /**
+     * Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
+     */
+    public loadEncoding: string;
+
+    /**
+     * Password for opening an encrypted document.
+     */
+    public password: string;
+
+    public constructor(init?: Partial< GetParagraphsOnlineRequest >) {
         Object.assign(this, init);
     }
 }
@@ -7429,14 +7594,14 @@ export class InsertParagraphRequest {
     public name: string;
 
     /**
-     * Paragraph data.
-     */
-    public paragraph: importedParagraphInsert.ParagraphInsert;
-
-    /**
      * Path to the node which contains paragraphs.
      */
     public nodePath: string;
+
+    /**
+     * Paragraph data.
+     */
+    public paragraph: importedParagraphInsert.ParagraphInsert;
 
     /**
      * Original document folder.
@@ -7479,6 +7644,61 @@ export class InsertParagraphRequest {
     public insertBeforeNode: string;
 
     public constructor(init?: Partial< InsertParagraphRequest >) {
+        Object.assign(this, init);
+    }
+}
+
+/**
+ * Request model for InsertParagraphOnline operation.
+ * Adds paragraph to document, returns added paragraph's data.
+ */
+export class InsertParagraphOnlineRequest {
+    /**
+     * Path to the node which contains paragraphs.
+     */
+    public nodePath: string;
+
+    /**
+     * The document.
+     */
+    public document: Readable;
+
+    /**
+     * Paragraph data.
+     */
+    public paragraph: importedParagraphInsert.ParagraphInsert;
+
+    /**
+     * Encoding that will be used to load an HTML (or TXT) document if the encoding is not specified in HTML.
+     */
+    public loadEncoding: string;
+
+    /**
+     * Password for opening an encrypted document.
+     */
+    public password: string;
+
+    /**
+     * Result path of the document after the operation. If this parameter is omitted then result of the operation will be saved as the source document.
+     */
+    public destFileName: string;
+
+    /**
+     * Initials of the author to use for revisions.If you set this parameter and then make some changes to the document programmatically, save the document and later open the document in MS Word you will see these changes as revisions.
+     */
+    public revisionAuthor: string;
+
+    /**
+     * The date and time to use for revisions.
+     */
+    public revisionDateTime: string;
+
+    /**
+     * Paragraph will be inserted before node with index.
+     */
+    public insertBeforeNode: string;
+
+    public constructor(init?: Partial< InsertParagraphOnlineRequest >) {
         Object.assign(this, init);
     }
 }
@@ -8929,6 +9149,31 @@ export class SaveAsRequest {
     public fontsLocation: string;
 
     public constructor(init?: Partial< SaveAsRequest >) {
+        Object.assign(this, init);
+    }
+}
+
+/**
+ * Request model for SaveAsOnline operation.
+ * Converts document to destination format with detailed settings and saves result to storage.
+ */
+export class SaveAsOnlineRequest {
+    /**
+     * The document.
+     */
+    public document: Readable;
+
+    /**
+     * Save options.
+     */
+    public saveOptionsData: importedSaveOptionsData.SaveOptionsData;
+
+    /**
+     * Folder in filestorage with custom fonts.
+     */
+    public fontsLocation: string;
+
+    public constructor(init?: Partial< SaveAsOnlineRequest >) {
         Object.assign(this, init);
     }
 }

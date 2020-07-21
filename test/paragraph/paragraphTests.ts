@@ -70,6 +70,26 @@ describe("paragraph", () => {
        });
     });
 
+    // Test for getting paragraph online.
+    describe("getDocumentParagraphOnline test", () => {
+        it("should return response with code 200", () => {
+            const wordsApi = BaseTest.initializeWordsApi();
+            const request = new model.GetParagraphOnlineRequest({
+                document: fs.createReadStream(BaseTest.localBaseTestDataFolder + localFile),
+                nodePath: "sections/0",
+                index: 0
+            });
+
+            // Act
+            return wordsApi.getParagraphOnline(request)
+            .then((resultApi) => {
+                // Assert
+                expect(resultApi.response.statusCode).to.equal(200);
+            });
+
+       });
+    });
+
     // Test for getting paragraph without node path.
     describe("getDocumentParagraphByIndexWithoutNodePath test", () => {
         it("should return response with code 200", () => {
@@ -123,6 +143,25 @@ describe("paragraph", () => {
                     expect(resultApi.response.statusCode).to.equal(200);
                 });
 
+            });
+
+       });
+    });
+
+    // Test for getting all paragraphs online.
+    describe("getDocumentParagraphsOnline test", () => {
+        it("should return response with code 200", () => {
+            const wordsApi = BaseTest.initializeWordsApi();
+            const request = new model.GetParagraphsOnlineRequest({
+                document: fs.createReadStream(BaseTest.localBaseTestDataFolder + localFile),
+                nodePath: "sections/0"
+            });
+
+            // Act
+            return wordsApi.getParagraphsOnline(request)
+            .then((resultApi) => {
+                // Assert
+                expect(resultApi.response.statusCode).to.equal(200);
             });
 
        });
@@ -306,6 +345,28 @@ describe("paragraph", () => {
                     expect(resultApi.response.statusCode).to.equal(200);
                 });
 
+            });
+
+       });
+    });
+
+    // Test for adding paragraph online.
+    describe("insertParagraphOnline test", () => {
+        it("should return response with code 200", () => {
+            const wordsApi = BaseTest.initializeWordsApi();
+            const request = new model.InsertParagraphOnlineRequest({
+                document: fs.createReadStream(BaseTest.localBaseTestDataFolder + localFile),
+                paragraph: new model.ParagraphInsert({
+                    text: "This is a new paragraph for your document"
+                }),
+                nodePath: "sections/0"
+            });
+
+            // Act
+            return wordsApi.insertParagraphOnline(request)
+            .then((resultApi) => {
+                // Assert
+                expect(resultApi.response.statusCode).to.equal(200);
             });
 
        });
@@ -520,6 +581,26 @@ describe("paragraph", () => {
                     expect(resultApi.statusCode).to.equal(200);
                 });
 
+            });
+
+       });
+    });
+
+    // Test for deleting  a paragraph online.
+    describe("deleteParagraphOnline test", () => {
+        it("should return response with code 200", () => {
+            const wordsApi = BaseTest.initializeWordsApi();
+            const request = new model.DeleteParagraphOnlineRequest({
+                document: fs.createReadStream(BaseTest.localBaseTestDataFolder + localFile),
+                nodePath: "",
+                index: 0
+            });
+
+            // Act
+            return wordsApi.deleteParagraphOnline(request)
+            .then((resultApi) => {
+                // Assert
+                expect(resultApi.response.statusCode).to.equal(200);
             });
 
        });
