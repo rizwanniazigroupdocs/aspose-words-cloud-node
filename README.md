@@ -1,4 +1,5 @@
-![](https://img.shields.io/badge/api-v2.0-lightgrey) ![npm](https://img.shields.io/npm/v/aspose-words-cloud) ![npm bundle size](https://img.shields.io/bundlephobia/min/aspose-words-cloud) ![node-current](https://img.shields.io/node/v/aspose-words-cloud) ![npm type definitions](https://img.shields.io/npm/types/aspose-words-cloud) [![GitHub license](https://img.shields.io/github/license/aspose-words-cloud/aspose-words-cloud-node)](https://github.com/aspose-words-cloud/aspose-words-cloud-node/blob/master/LICENSE)
+![](https://img.shields.io/badge/api-v4.0-lightgrey) ![npm](https://img.shields.io/npm/v/aspose-words-cloud) ![npm bundle size](https://img.shields.io/bundlephobia/min/aspose-words-cloud) ![node-current](https://img.shields.io/node/v/aspose-words-cloud) ![npm type definitions](https://img.shields.io/npm/types/aspose-words-cloud) [![GitHub license](https://img.shields.io/github/license/aspose-words-cloud/aspose-words-cloud-node)](https://github.com/aspose-words-cloud/aspose-words-cloud-node/blob/master/LICENSE) 
+
 Node.js Cloud SDK wraps Aspose.Words REST API so you could seamlessly integrate Microsoft Word® document generation, manipulation, conversion & inspection features into your own Node.js applications.
 
 # Node.js SDK for Word Documents Processing in the Cloud
